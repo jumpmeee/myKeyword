@@ -1,0 +1,125 @@
+190114
+값을 전달할 때 test 로 get으로 받아오는걸 해줌.
+ejs에 변수로 찍는걸 연습할려그랬는데 안되서 뭐지 했는데
+라우팅 해줄때 가져온 값을 다시 넣어주는 작업을 해야함.
+그 넘어온 값을 받는 방법이 get이랑 post랑 다른데 일단,
+get일때는 req.query.이름 이런식으로 받아와야하고
+post일때는 req.body 어쩌구 해서 body-parser인가 사용해서 해야함.
+
+자동 줄맞춤 : ^+K+F
+
+csv to json
+https://www.csvjson.com/csv2json
+
+$ git add keyWord.json
+warning: LF will be replaced by CRLF in keyWord.json. (그 줄바꿈 LF를 CRLF로 대체한다는 내용)
+The file will have its original line endings in your working directory.
+
+190115
+업데이트 했더니..... 영어판으로 바꼈다 
+
+결과 하면에 get으로 넘어가게 해놨는데 이때 빈값같은거 체크하고 post로 변경해야함.
+그래서 body-parser를 설치했는데 있지, express3 -> express4로 마이그레이션 되면서 
+쓰는법이 달라짐.https://expressjs.com/ko/guide/migrating-4.html
+
+node -v : v8.11.1 -> update 10.15.0 현재 LTS
+npm -v : 5.6.0 -> update 6.4.1 현재 LTS 
+express -v : 4.16.0
+
+update를 하고 이메일 get을 post로 바꿨는데 그 다음은 뭐냐하면.. 음..
+일단 내 부분은 DB에서 가져와서 결과를 뿌려주는건데.
+일단은 샘플을 만들어서 해볼까나, 그럼 무슨 샘플이 필요한거냐.
+
+[
+  {
+    "no": 1,
+    "keyWord": "단순한",
+    "cnt": 10
+  },
+  {
+    "no": 2,
+    "keyWord": "개척적인",
+    "cnt": 2
+  },
+  {
+    "no": 3,
+    "keyWord": "결단력있는",
+    "cnt": 4
+  },
+  {
+    "no": 4,
+    "keyWord": "경쟁적인",
+    "cnt": 9
+  },
+  {
+    "no": 5,
+    "keyWord": "고집이 있는",
+    "cnt": 1
+  },
+  {
+    "no": 6,
+    "keyWord": "공격적인",
+    "cnt": 2
+  },
+  {
+    "no": 7,
+    "keyWord": "단호한",
+    "cnt": 0
+  },
+  {
+    "no": 8,
+    "keyWord": "도전적인",
+    "cnt": 7
+  },
+  {
+    "no": 9,
+    "keyWord": "독립적인",
+    "cnt": 9
+  },
+  {
+    "no": 10,
+    "keyWord": "목표를 이루는",
+    "cnt": 0
+  },
+  {
+    "no": 11,
+    "keyWord": "성취가 중요한",
+    "cnt": 0
+  },
+  {
+    "no": 12,
+    "keyWord": "실행력있는",
+    "cnt": 0
+  },
+  {
+    "no": 13,
+    "keyWord": "엄격한",
+    "cnt": 0
+  },
+  {
+    "no": 14,
+    "keyWord": "의지가 강한",
+    "cnt": 0
+  },
+  {
+    "no": 15,
+    "keyWord": "논쟁하는",
+    "cnt": 0
+  }
+]
+
+이게 샘플이라고 생각하면 일단 생각해야하는게,
+Top3가 있을때, 겹치는 카운트는 어떻게 해줄건지? 그러니까 겹치는 카운트를 만들어야함.
+표에서 한번이라도 선택된 애들을 보여줄려면 cnt >= 1 인게 있어야 하고 0인애들은 안보여야 하니까 cnt == 0 인 애들이 있어야함.
+음수 처리해주는 부분 필요
+
+남이 선택하고 내가 선택한거 겹치지 않는걸 비교하자면, 내가 선택한 목록이 있어야하고 남이 선택한 목록이 있어야 하는데,
+그건 지금 없으니까 일단 Top3부터 하는게 좋을거 같다. 근데 음,, 그러면 for문으로 하나하나 비교해야 하려나?
+
+route 파일 분리해서 사용하기 위해 users.js 로 옮김. 그러면서 result페이지의 리소스들 경로가 assets/ -> /assets/로 변경함 왜냐하면
+/users/assets로 들어가서 404 에러를 띄움. 나중에 합칠 때 다시 index로 옮기던지 할건데 그때, 잘 수정할것
+
+git .ignore파일이 필요함. nodemodules를 제외하기 위한. but 지금은 안해놓음.
+계속해서 pull 할때 install 다시해야해서 번거로움.
+
+충돌날 때 git commit -am "" 이걸로 하면 덜 나.... add도 잘 하고.. 
