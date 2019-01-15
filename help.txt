@@ -1,0 +1,45 @@
+설명
+우리 프로젝트는 express 프레임워크를 사용하여 프로젝트 뼈대를 만들었음.
+
+- /bin/www
+http 관련 설정이 되어있는 파일.
+npm start 시 이 파일이 시작되면서 서버가 시작되는 것.
+
+- node_modules
+npm install 시 모듈들이 설치되는 폴더 자동으로 생성 됨. git에 올리지 않음.
+
+- app.js
+
+- /route 폴더 안의 route.js
+
+- views의 ejs 파일
+
+- package.json 파일 
+프로젝트의 이름, 버전, script들과 프로젝트에서 사용되는 모듈들이 기록되는데, 
+express 프로젝트 생성 시 기본적으로 추가되는 모듈(cookie-parser, debug, ejs, express, http-errors, morgan => 공부해야함. )들이 있으며, 
+프로젝트 생성할 시 자동으로 생성되며, 모듈 추가할 때 자동으로 기록됨.
+
+- npm?
+
+- 경로?
+
+Git 명령어
+
+
+프로젝트 구동 순서
+
+# npm install
+/* package.json에 명시된 모듈들(npm install <모듈 이름>시 자동으로 package.json에 명시됨)을 설치 하는 명령어 */
+
+# npm start
+/* 서버를 시작하는 명령어 npm start 후 브라우저에서 127.0.0.1:3000 으로 접속 가능 
+<포트번호 : 기본 3000으로 설정되어있음 변경가능!!>
+서버 구동 멈추기 : crtl+c 입력 후 나오는 질문에 y 치고 엔터 하면 서버 종료됨.
+view 파일의 변경시에는 브라우저 새로고침으로 확인 가능하나 서버단의 파일들은 안되기 때문에 서버 재시작 필요.
+*/
+
+# npm install -g express-generator
+/* 이거는 한번만 해주면 되는데 -g가 global 옵션 전역변수로 install한다는 의미, express 프로젝트를 시작할 수 있게 해줌.
+/* 새 프로젝트를 생성하려면 express <프로젝트 이름> 명령어 터미널에 치면됨. (옵션을 줄 수 있는데 우리 프로젝트는 뷰템플릿으로 ejs를 사용하므로 --ejs 옵션을 주었음. 기본은 jade(=pug))
+
+
