@@ -23,7 +23,7 @@
 
 		<!-- Header -->
 		<header id="header">
-			<!-- <h1>님의 결과분석</h1> -->
+			<h1><%= Email %> 님의 결과분석</h1>
 			<p>나의 <b>Top 3</b> 키워드와 매칭률을 보여줍니다.</p>
 		</header>
 
@@ -37,7 +37,7 @@
 					<header class="major">
 						<h2>Top 3</h2>
 					</header>
-					<h1>도전적인, 실행력있는, 긍정적인</h1>
+					<h1><%= top3[0].keyWord %></h1>
 
 					<div>
 						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){

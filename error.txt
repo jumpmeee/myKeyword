@@ -12,7 +12,7 @@ git push origin master
 git checkout mh1 으로 mh1 브랜치에서 작업 중이다가 commit 한 다음에
 git checkout master로 돌아가서 git merger mh1 으로 병합 한 후 
 git pull (충돌방지) 다음 git push origin master 해주기 
-
+===================================================================================
 2. node_modules 폴더 재설치 필요
 -> node_modules 폴더를 git 에서 다시 push 해왔더니 npm start시 오류가 발생.
 > myKeyword@0.0.0 start C:\Users\조민희\Desktop\myKeyword
@@ -46,3 +46,14 @@ npm ERR!     C:\Users\조민희\AppData\Roaming\npm-cache\_logs\2019-01-14T09_09
 
 node_modules가 제대로 설치가 되지 않아 발생한거 같음. 
 npm install로 모듈을 다시 설치해서 해결.
+
+===================================================================================
+3. 라우팅 해주면서 ejs 파일에 배열 넘겨주고 <%= %> 이렇게 찍으려 했더니 SyntaxError 발생함
+missing ) after argument list in C:\Users\조민희\Desktop\myKeyword\views\result.ejs while compiling ejs If the above error is not helpful, you may want to try EJS-Lint: https://github.com/RyanZim/EJS-Lint
+SyntaxError: missing ) after argument list in C:\Users\조민희\Desktop\myKeyword\views\result.ejs while compiling ejs
+
+저거 삭제하면 안나는거 봐서 저부분이 말썽인데,,,
+
+해결 : 라우팅 수정하면서 오타가 있었나봄... 그래서 다시 복붙해옴 되던거 부터,
+그 뭐냐 원래 <%= Email %> 이게 먹었엇는데 내가 다시 쓴 라우팅 함수에서는 이게작동하지 않아서 원래 되던거에 복붙해서 테스트하니까
+잘됨. 그러니까 내잘못 오타 ㅇㅅㅇ

@@ -7,7 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/result', function(req, res, next) {
-  console.log(req.body.check_info+"sksknfksnfksnfksnfksanflnsalfknaslk");
+  console.log(req.body.chk);
+  console.log("==========================================================")
   res.render('result');
 });
 

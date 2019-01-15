@@ -59,8 +59,6 @@
 
 					function click_submit(obj) { 
 						alert("제출이 완료되었습니다.");
-						location.replace("/result");
-						
 						}
 					</script>
 					
@@ -85,12 +83,12 @@
 									name = "check_info" method = "POST">
 										<div class="row">
 												<div class="actions small">
-													<input type="checkbox" id="1" name="chk" onclick="count_ck(this)">
+													<input type="checkbox" id="1" name="chk" onclick="count_ck(this)" value="1">
 													<label for="1">단순한</label>
 													</div>	
 												
 												<div class="actions small">
-														<input type="checkbox" id="2" name="chk" onclick="count_ck(this)">
+														<input type="checkbox" id="2" name="chk" onclick="count_ck(this)" value="2">
 														<label for="2">개척적인</label>
 													</div>	
 												<div class="actions small">
