@@ -6,7 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/result', function(req, res, next) {
+router.post('/result', function(req, res, next) {
+  console.log(req.body.check_info+"sksknfksnfksnfksnfksanflnsalfknaslk");
   res.render('result');
 });
 
