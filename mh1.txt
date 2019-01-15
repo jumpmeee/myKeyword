@@ -21,6 +21,7 @@ The file will have its original line endings in your working directory.
 결과 하면에 get으로 넘어가게 해놨는데 이때 빈값같은거 체크하고 post로 변경해야함.
 그래서 body-parser를 설치했는데 있지, express3 -> express4로 마이그레이션 되면서 
 쓰는법이 달라짐.https://expressjs.com/ko/guide/migrating-4.html
+https://medium.com/@flsqja12_33844/1%EB%B6%84-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%86%8C%EA%B0%9C-body-parser%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4-%ED%95%98%EC%A7%80%EB%A7%8C-body-parser%EB%A5%BC-%EC%93%B0%EC%A7%80-%EB%A7%88%EC%84%B8%EC%9A%94-bc3cbe0b2fd
 
 node -v : v8.11.1 -> update 10.15.0 현재 LTS
 npm -v : 5.6.0 -> update 6.4.1 현재 LTS 
@@ -123,3 +124,24 @@ git .ignore파일이 필요함. nodemodules를 제외하기 위한. but 지금�
 계속해서 pull 할때 install 다시해야해서 번거로움.
 
 충돌날 때 git commit -am "" 이걸로 하면 덜 나.... add도 잘 하고.. 
+
+sample을 기준으로 top3를 뽑는다고 할때 어떻게 할것이냐.
+1) sample1[0] 을 일단 top3 배열에 넣어놔,
+그담에 top3배열의 cnt랑 for문 돌면서 하나하나 비교하는거야,
+3개를 기준으로 하고,
+
+아니면, 정렬해 cnt 기준으로 그래서 그걸 top3배열에 넣어주고,
+3번째까지 선택하는거야,
+
+라고 고민을 시작했는데
+
+================> 해결방법은
+mongoDB 함수 중에 find()가 select하는건데 그거 limit랑 sort랑 다있음.
+그러니까 sort해서 limit3해가지고 3개까지만 뽑아내면 된다는 말,
+그러면 일단 for문에서도, sort해가지고 3개까지만 출력하면 됨. ㅇㅂㅇ
+
+그래서 sort 함수 작성해가지고 정렬해서 찍는거 까지 했는데,
+그러면 그냥 top3할때 너무 고민 말고 3개까지 찍어주고, 순서대로라고 명시하면 되지 않을까?
+어차피 밑에다가 다 찍어 줄거잖아 표에 !
+참고 : https://programmingsummaries.tistory.com/150
+https://tonks.tistory.com/124

@@ -86,16 +86,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/result', function(req, res, next) {
 
-  let top3 =[];
-
-  
-  for(let i in sample1) {
-    top3.push(sample1[i]);
-  }
+  let top3 = sample1;
+  top3.sort(function(a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
 
   console.log(req.body.Email + "???");
   console.log(req.body);
-  console.log(top3[1]);
+  console.log(top3);
   console.log("==========================================");
 
   res.render('result', {Email : req.body.Email, top3 : top3});
