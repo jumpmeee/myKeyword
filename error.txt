@@ -57,3 +57,31 @@ SyntaxError: missing ) after argument list in C:\Users\조민희\Desktop\myKeywo
 해결 : 라우팅 수정하면서 오타가 있었나봄... 그래서 다시 복붙해옴 되던거 부터,
 그 뭐냐 원래 <%= Email %> 이게 먹었엇는데 내가 다시 쓴 라우팅 함수에서는 이게작동하지 않아서 원래 되던거에 복붙해서 테스트하니까
 잘됨. 그러니까 내잘못 오타 ㅇㅅㅇ
+
+4. MongoDB 콜렉션 생성 시 autoIndex옵션을 줄 때 invalid error 발생
+autoIndex => autoIndexID 로 줘야함.
+https://docs.mongodb.com/v3.2/reference/method/db.createCollection/
+문서에서 찾음.
+3.4 버전 이상에서는 autoIndexId 옵션이 사라짐. 왜?
+
+5. mongoose version : 5.4.4
+WARNING: The `useMongoClient` option is no longer necessary in mongoose 5.x, please remove it.
+mongoose.connect(process.env.MONGO_URI, { useMongoClient: true }) => mongoose.connect(process.env.MONGO_URI) => mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
+(node:11324) DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
+
+6. 
+(node:25200) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+By default, Mongoose 5.x calls the MongoDB driver's ensureIndex() function. The MongoDB driver deprecated this function in favor of createIndex(). Set the useCreateIndex global option to opt in to making Mongoose use createIndex() instead.
+
+mongoose.set('useCreateIndex', true);
+You can also configure useCreateIndex by passing it through the connection options.
+
+mongoose.connect(uri, { useCreateIndex: true });
+
+7. mKeyword is not a constructor
+TypeError: mKeyword is not a constructor
+    at C:\Users\조민희\Desktop\myKeyword\routes\users.js:102:20
+
+디비 연결 다하고 create 만들면서 생긴 오류
+var mKeyword = new mKeyword(); 이부분에서 생긴건데 왜 그런거지...
+constructor가 없다는데 강의에서 constructor를 해주는게 없는데.

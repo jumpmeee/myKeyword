@@ -8,8 +8,8 @@ router.get('/', function(req, res, next) {
 
 router.post('/result', function(req, res, next) {
   console.log(req.body.chk);
-  console.log("==========================================================")
-  res.render('result');
+  console.log("==========================================================");
+  res.render('result', {Email : "sample", top3 : 1});
 });
 
 router.get('/check', function(req, res, next) {
