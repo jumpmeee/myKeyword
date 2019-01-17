@@ -90,8 +90,8 @@ module.exports = function (app, User) {
       }
       data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
       console.log(data);
-
-      res.render('result', { Email: user.email, data: data });
+    
+      res.render('result', { Email: req.body.email, data: data });
     });
   });
 
