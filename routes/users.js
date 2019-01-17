@@ -57,6 +57,7 @@ module.exports = function (app, User) {
     */
 
     //여기는 일단, 처음으로 유저가 했을때를 생각하면서 하는거야.
+    console.log("=======================================insert");
 
    console.log(req.body.chk);
    console.log(req.body.email);
@@ -85,12 +86,14 @@ module.exports = function (app, User) {
       //결과를 출력해야하는데, top3는 totCnt를 기준으로 할거니까 user.totCnt를 정렬해서 3개까지만 출력하면 되. 이걸 node에서 어떻게 하게
       for(let i in arr) {
         if(arr[i] > 0) {
-          data.push({keyWord: sample1[i].keyWord, cnt: arr[i]});
+          data.push({keyWord: sample1[i], cnt: arr[i]});
         }
       }
       data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
       console.log(data);
-    
+
+      console.log(user.email);
+      console.log(req.body.email);
       res.render('result', { Email: req.body.email, data: data });
     });
   });

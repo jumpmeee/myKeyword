@@ -1,0 +1,532 @@
+[
+    {
+        "email" : "test@test.com",
+        "userCh" : [1,2,3,4,5,6,7,8,9,10,11,12],
+        "otherCnt" : 0,
+        "otherCh" : [
+            {
+                "name" : "testO@test.com",
+                "otherCh" : [[10,11,12,13,14,15,16,17,18,19,20,21,22]]
+            }
+        ],
+        "totCnt" : [];       
+    }
+]
+
+
+db.users.insert([
+    {
+        "email" : "test@test.com",
+        "userCh" : [1,2,3,4,5,6,7,8,9,10,11,12],
+        "otherCnt" : 0,
+        "otherCh" : [
+            {
+                "name" : "testO@test.com",
+                "otherCh" : [[10,11,12,13,14,15,16,17,18,19,20,21,22]]
+            }
+        ],
+        "keyWord" : [
+  {
+    "no": 1,
+    "description": "단순한",
+    "cnt": 0
+  },
+  {
+    "no": 2,
+    "description": "개척적인",
+    "cnt": 0
+  },
+  {
+    "no": 3,
+    "description": "결단력있는",
+    "cnt": 0
+  },
+  {
+    "no": 4,
+    "description": "경쟁적인",
+    "cnt": 0
+  },
+  {
+    "no": 5,
+    "description": "고집이 있는",
+    "cnt": 0
+  },
+  {
+    "no": 6,
+    "description": "공격적인",
+    "cnt": 0
+  },
+  {
+    "no": 7,
+    "description": "단호한",
+    "cnt": 0
+  },
+  {
+    "no": 8,
+    "description": "도전적인",
+    "cnt": 0
+  },
+  {
+    "no": 9,
+    "description": "독립적인",
+    "cnt": 0
+  },
+  {
+    "no": 10,
+    "description": "목표를 이루는",
+    "cnt": 0
+  },
+  {
+    "no": 11,
+    "description": "성취가 중요한",
+    "cnt": 0
+  },
+  {
+    "no": 12,
+    "description": "실행력있는",
+    "cnt": 0
+  },
+  {
+    "no": 13,
+    "description": "엄격한",
+    "cnt": 0
+  },
+  {
+    "no": 14,
+    "description": "의지가 강한",
+    "cnt": 0
+  },
+  {
+    "no": 15,
+    "description": "논쟁하는",
+    "cnt": 0
+  },
+  {
+    "no": 16,
+    "description": "주도적인",
+    "cnt": 0
+  },
+  {
+    "no": 17,
+    "description": "지도력있는",
+    "cnt": 0
+  },
+  {
+    "no": 18,
+    "description": "참을성이 부족한",
+    "cnt": 0
+  },
+  {
+    "no": 19,
+    "description": "추진력있는",
+    "cnt": 0
+  },
+  {
+    "no": 20,
+    "description": "활동적인",
+    "cnt": 0
+  },
+  {
+    "no": 21,
+    "description": "객관적인",
+    "cnt": 0
+  },
+  {
+    "no": 22,
+    "description": "계획적인",
+    "cnt": 0
+  },
+  {
+    "no": 23,
+    "description": "관례를 따르는",
+    "cnt": 0
+  },
+  {
+    "no": 24,
+    "description": "근거가 중요한",
+    "cnt": 0
+  },
+  {
+    "no": 25,
+    "description": "꼼꼼한",
+    "cnt": 0
+  },
+  {
+    "no": 26,
+    "description": "끈기있는",
+    "cnt": 0
+  },
+  {
+    "no": 27,
+    "description": "논리적인",
+    "cnt": 0
+  },
+  {
+    "no": 28,
+    "description": "단계적인",
+    "cnt": 0
+  },
+  {
+    "no": 29,
+    "description": "분석적인",
+    "cnt": 0
+  },
+  {
+    "no": 30,
+    "description": "비판적인",
+    "cnt": 0
+  },
+  {
+    "no": 31,
+    "description": "시간이걸리는",
+    "cnt": 0
+  },
+  {
+    "no": 32,
+    "description": "신중한",
+    "cnt": 0
+  },
+  {
+    "no": 33,
+    "description": "완벽을 추구하는",
+    "cnt": 0
+  },
+  {
+    "no": 34,
+    "description": "일관성있는",
+    "cnt": 0
+  },
+  {
+    "no": 35,
+    "description": "정확한",
+    "cnt": 0
+  },
+  {
+    "no": 36,
+    "description": "조직화하는",
+    "cnt": 0
+  },
+  {
+    "no": 37,
+    "description": "체계적인",
+    "cnt": 0
+  },
+  {
+    "no": 38,
+    "description": "침착한",
+    "cnt": 0
+  },
+  {
+    "no": 39,
+    "description": "한가지에 집중하는",
+    "cnt": 0
+  },
+  {
+    "no": 40,
+    "description": "현실감있는",
+    "cnt": 0
+  },
+  {
+    "no": 41,
+    "description": "감성적인",
+    "cnt": 0
+  },
+  {
+    "no": 42,
+    "description": "낙관적인",
+    "cnt": 0
+  },
+  {
+    "no": 43,
+    "description": "대인관계가 넓은",
+    "cnt": 0
+  },
+  {
+    "no": 44,
+    "description": "언변이 뛰어난",
+    "cnt": 0
+  },
+  {
+    "no": 45,
+    "description": "모임을 즐기는",
+    "cnt": 0
+  },
+  {
+    "no": 46,
+    "description": "변덕스러운",
+    "cnt": 0
+  },
+  {
+    "no": 47,
+    "description": "변화를 즐기는",
+    "cnt": 0
+  },
+  {
+    "no": 48,
+    "description": "사교적인",
+    "cnt": 0
+  },
+  {
+    "no": 49,
+    "description": "생기발랄한",
+    "cnt": 0
+  },
+  {
+    "no": 50,
+    "description": "설득력있는",
+    "cnt": 0
+  },
+  {
+    "no": 51,
+    "description": "쉽게 실증내는",
+    "cnt": 0
+  },
+  {
+    "no": 52,
+    "description": "에너지있는",
+    "cnt": 0
+  },
+  {
+    "no": 53,
+    "description": "열정적인",
+    "cnt": 0
+  },
+  {
+    "no": 54,
+    "description": "유머감각있는",
+    "cnt": 0
+  },
+  {
+    "no": 55,
+    "description": "융통성있는",
+    "cnt": 0
+  },
+  {
+    "no": 56,
+    "description": "인기있는",
+    "cnt": 0
+  },
+  {
+    "no": 57,
+    "description": "적응력이 뛰어난",
+    "cnt": 0
+  },
+  {
+    "no": 58,
+    "description": "즐거움을 찾는",
+    "cnt": 0
+  },
+  {
+    "no": 59,
+    "description": "충동적인",
+    "cnt": 0
+  },
+  {
+    "no": 60,
+    "description": "타인에 민감한",
+    "cnt": 0
+  },
+  {
+    "no": 61,
+    "description": "이해가빠른",
+    "cnt": 0
+  },
+  {
+    "no": 62,
+    "description": "기획하는",
+    "cnt": 0
+  },
+  {
+    "no": 63,
+    "description": "동기유발하는",
+    "cnt": 0
+  },
+  {
+    "no": 64,
+    "description": "디테일약한",
+    "cnt": 0
+  },
+  {
+    "no": 65,
+    "description": "마무리에 약한",
+    "cnt": 0
+  },
+  {
+    "no": 66,
+    "description": "문제를 해결하는",
+    "cnt": 0
+  },
+  {
+    "no": 67,
+    "description": "미래지향적인",
+    "cnt": 0
+  },
+  {
+    "no": 68,
+    "description": "사색하는",
+    "cnt": 0
+  },
+  {
+    "no": 69,
+    "description": "전략적인",
+    "cnt": 0
+  },
+  {
+    "no": 70,
+    "description": "생각이 빠른",
+    "cnt": 0
+  },
+  {
+    "no": 71,
+    "description": "소신있는",
+    "cnt": 0
+  },
+  {
+    "no": 72,
+    "description": "아이디어가 많은",
+    "cnt": 0
+  },
+  {
+    "no": 73,
+    "description": "원리를 파악하는",
+    "cnt": 0
+  },
+  {
+    "no": 74,
+    "description": "이성적인",
+    "cnt": 0
+  },
+  {
+    "no": 75,
+    "description": "창의적인",
+    "cnt": 0
+  },
+  {
+    "no": 76,
+    "description": "추상적인",
+    "cnt": 0
+  },
+  {
+    "no": 77,
+    "description": "큰 그림을 보는",
+    "cnt": 0
+  },
+  {
+    "no": 78,
+    "description": "통찰력있는",
+    "cnt": 0
+  },
+  {
+    "no": 79,
+    "description": "혁신적인",
+    "cnt": 0
+  },
+  {
+    "no": 80,
+    "description": "호기심많은",
+    "cnt": 0
+  },
+  {
+    "no": 81,
+    "description": "겸손한",
+    "cnt": 0
+  },
+  {
+    "no": 82,
+    "description": "경청하는",
+    "cnt": 0
+  },
+  {
+    "no": 83,
+    "description": "느긋한",
+    "cnt": 0
+  },
+  {
+    "no": 84,
+    "description": "대인관계가 원만한",
+    "cnt": 0
+  },
+  {
+    "no": 85,
+    "description": "동정심이 많은",
+    "cnt": 0
+  },
+  {
+    "no": 86,
+    "description": "불확실이 두려운",
+    "cnt": 0
+  },
+  {
+    "no": 87,
+    "description": "성실한",
+    "cnt": 0
+  },
+  {
+    "no": 88,
+    "description": "수동적인",
+    "cnt": 0
+  },
+  {
+    "no": 89,
+    "description": "수용적인",
+    "cnt": 0
+  },
+  {
+    "no": 90,
+    "description": "안정적인",
+    "cnt": 0
+  },
+  {
+    "no": 91,
+    "description": "온화한",
+    "cnt": 0
+  },
+  {
+    "no": 92,
+    "description": "욕심이 적은",
+    "cnt": 0
+  },
+  {
+    "no": 93,
+    "description": "우유부단한",
+    "cnt": 0
+  },
+  {
+    "no": 94,
+    "description": "이해심 많은",
+    "cnt": 0
+  },
+  {
+    "no": 95,
+    "description": "인내심있는",
+    "cnt": 0
+  },
+  {
+    "no": 96,
+    "description": "인심 좋은",
+    "cnt": 0
+  },
+  {
+    "no": 97,
+    "description": "절제력있는",
+    "cnt": 0
+  },
+  {
+    "no": 98,
+    "description": "팀웍이 좋은",
+    "cnt": 0
+  },
+  {
+    "no": 99,
+    "description": "현재에 충실한",
+    "cnt": 0
+  },
+  {
+    "no": 100,
+    "description": "협조적인",
+    "cnt": 0
+  }
+]
+       
+    }
+])
