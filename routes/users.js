@@ -1,4 +1,4 @@
-module.exports = function (app, mKeyword) {
+module.exports = function (app, User) {
   const express = require('express');
   const router = express.Router();
 
@@ -98,23 +98,70 @@ module.exports = function (app, mKeyword) {
     res.render('result', { Email: req.body.Email, top3: top3 });
   });
 
+  //create
   router.get('/result/:id', function (req, res, next) {
-    var mKeyword = new mKeyword({
-      email: req.query.id
-    });
-    
 
-    mKeyword.save(function(err) {
-      if(err) {
+    console.log(req.params.id);
+    console.log("===========================");
+    var user = new User();
+    user.email = req.params.id;
+
+    user.save(function (err) {
+      if (err) {
         console.error(err);
         return;
       }
-    })
+    });
 
-    res.json({result: 1});
+    res.json({ result: 1 });
     //res.render('result', { Email: req.body.Email, top3: top3 });
+  });
+
+  router.get('/result/find/:id', (req, res, next) => {
+    User.find({ email: req.params.id }, (err, users) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      res.json(users);
+    })
   })
 
-  return router;
+  router.get('/update', (req, res, next) => {
+    console.log(req.query.id);
+    console.log(req.query.otherCnt);
 
+    User.findOne({ email: req.query.id }, (err, user) => {
+      if (err) return res.status(500).json({ error: 'database failure' });
+      if (!user) return res.status(404).json({ error: 'user not found' });
+
+      if (req.query.otherCnt) user.otherCnt = req.query.otherCnt;
+
+      user.save(function (err) {
+        if (err) res.status(500).json({ error: 'failed to update' });
+        res.json({ message: 'user updated' });
+      })
+    })
+  }) //put으로 변경할 수 있으면 변경할 것, check에서 넘기면서 ajax로 동작하게 하면 될듯.
+  //http://127.0.0.1:3000/users/update?id=srs112&otherCnt=1 example
+
+  router.get('/update2', (req, res, next) => {
+    User.update({email: req.query.id}, { $set: req.query }, (err, output) => {
+      if(err) res.status(500).json({error: 'db fail'});
+      console.log(output);
+      if(!output.n) return res.status(404).json({error: 'user not found'});
+      res.json({message: 'user updated'}); 
+      //{ n: 1, nModified: 0, ok: 1 } nModified는 변경한 document 갯수, n은 select된 document 갯수 기존 내용이 업데이트 할 내용과 같으면 nModified 는 0 으로 되기 때문에, n 값을 비교하여 성공여부를 판단합니다.
+    })
+  })
+
+  router.get('/delete/:id', (req, res) => {
+    User.deleteOne({ email: req.params.id }, (err, output) => {
+        if(err) return res.status(500).json({ error: "database failure" });
+        res.status(204).end();
+    })
+});
+
+  return router;
 }

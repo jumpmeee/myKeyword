@@ -3,7 +3,7 @@
 ejs에 변수로 찍는걸 연습할려그랬는데 안되서 뭐지 했는데
 라우팅 해줄때 가져온 값을 다시 넣어주는 작업을 해야함.
 그 넘어온 값을 받는 방법이 get이랑 post랑 다른데 일단,
-get일때는 req.query.이름 이런식으로 받아와야하고
+get일때는 req.query.? => 127.0.0.1/user?id=aaa 이런 쿼리 방식 req.params? => 127.0.0.1/user/:id 이런 path 방식값 가져올때 이런식으로 받아와야하고
 post일때는 req.body 어쩌구 해서 body-parser인가 사용해서 해야함.
 
 자동 줄맞춤 : ^+K+F

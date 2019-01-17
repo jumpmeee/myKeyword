@@ -17,10 +17,10 @@ mongoose.connect(process.env.MONGO_URI, { useCreateIndex: true, useNewUrlParser:
   .then(() => console.log('Successfully connected to mongodb'))
   .catch(e => console.error(e));
 
-const mKeyword = require('./public/models/mKeyword');
+const user = require('./public/models/user');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users')(app, mKeyword);
+const usersRouter = require('./routes/users')(app, user);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
