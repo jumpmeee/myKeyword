@@ -18,11 +18,11 @@
 <body class="is-preload" onload="addBox()">
 
 	<script language="javascript">
-		//5개만 체크되게 하기
+		//12개만 체크되게 하기
 		var a = false;
 		function count_ck(obj) {
 			var chkbox = document.getElementsByName("chk");
-			var chkCnt = 5;
+			var chkCnt = 12;
 			var td = document.getElementById("test");
 			var n = Number(td.innerHTML);
 			var btn = document.getElementById("submit");
@@ -38,7 +38,7 @@
 			}
 
 			if (chkCnt < 0) {
-				alert("5개를 초과했습니다.");
+				alert("12개를 초과했습니다.");
 				obj.checked = false;
 				chkCnt++;
 				td.innerHTML = chkCnt + "개 남았습니다.";
@@ -47,9 +47,9 @@
 
 			}
 			//초기화
-			if (chkCnt == 5) {
+			if (chkCnt == 12) {
 
-				td.innerHTML = "5개 남았습니다.";
+				td.innerHTML = "12개 남았습니다.";
 			}
 
 			if (chkCnt == 0) {
@@ -98,7 +98,7 @@
 				str +=  parseInt(i)+1;
 				str +=  "' type='checkbox' id='";
 				str +=  (i+1);
-				str +=  "' name='chk' onclick='count_ck(this)''><label for='";
+				str +=  "' name='chk' onclick='count_ck(this)''><label size = 10 for='";
 				str +=  (i+1);
 				str +=  "'>";
 				str +=  arr[i];
@@ -125,14 +125,14 @@
 		</header>
 		
 		<nav id="nav">
-			<span id="test">5개 남았습니다.</span>						
+			<span id="test">12개 남았습니다.</span>						
 		</nav> 
 		
 		<!-- Main -->
 		<div id="main">
 				<!-- <table>
 						<tr>
-							<td id="test">5개 남았습니다.</td>
+							<td id="test">12개 남았습니다.</td>
 						</tr>
 					</table> -->
 			<!-- Content -->

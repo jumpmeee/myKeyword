@@ -9,11 +9,15 @@ router.get('/', function(req, res, next) {
 router.post('/result', function(req, res, next) {
   console.log(req.body);
   console.log("------------------------");
+
   res.render('result');
 });
 
-router.get('/check', function(req, res, next) {
+router.post('/check', function(req, res, next) {
   res.render('check');
+  console.log(req.body);
+  console.log("------------------------");
+
 });
 
 module.exports = router;

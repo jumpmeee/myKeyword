@@ -4,15 +4,16 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
 <html>
 
 <head>
 	<title>나의 키워드 - 결과분석</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="/assets/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 </head>
 
 <body class="is-preload">
@@ -22,7 +23,7 @@
 
 		<!-- Header -->
 		<header id="header">
-			<h1>결과분석</h1>
+			<h1><%= Email %> 님의 결과분석</h1>
 			<p>나의 <b>Top 3</b> 키워드와 매칭률을 보여줍니다.</p>
 		</header>
 
@@ -36,7 +37,7 @@
 					<header class="major">
 						<h2>Top 3</h2>
 					</header>
-					<h1>도전적인, 실행력있는, 긍정적인</h1>
+					<h1><%= top3[0].keyWord %>, <%= top3[1].keyWord %>, <%= top3[2].keyWord %></h1>
 
 					<div>
 						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
@@ -62,36 +63,18 @@
 											</tr>
 										</thead>
 										<tbody>
+											<% let sum = 0; for(let i in top3) {%>
 											<tr>
-												<td>Item One</td>
-												<td>Ante turpis integer aliquet porttitor.</td>
-												<td>29.99</td>
+												<td><%= top3[i].keyWord %></td>
+												<td>&nbsp;</td>
+												<td><%= top3[i].cnt %></td>
 											</tr>
-											<tr>
-												<td>Item Two</td>
-												<td>Vis ac commodo adipiscing arcu aliquet.</td>
-												<td>19.99</td>
-											</tr>
-											<tr>
-												<td>Item Three</td>
-												<td> Morbi faucibus arcu accumsan lorem.</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Four</td>
-												<td>Vitae integer tempus condimentum.</td>
-												<td>19.99</td>
-											</tr>
-											<tr>
-												<td>Item Five</td>
-												<td>Ante turpis integer aliquet porttitor.</td>
-												<td>29.99</td>
-											</tr>
+											<% sum += top3[i].cnt}; %>
 										</tbody>
 										<tfoot>
 											<tr>
 												<td colspan="2"></td>
-												<td>100.00</td>
+												<td><%= sum %></td> <!--이부분은 무슨 부분인지 다시 확인할 것, 일단은 cnt의 합으로 나타내긴 했는데, %로 나타내는건가? -->
 											</tr>
 										</tfoot>
 									</table>
@@ -119,11 +102,6 @@
 					</header>
 					<h1><b>73%</b></h1>
 
-					<!-- <footer class="major">
-													<ul class="actions special">
-														<li><a href="result.html" class="button">+</a></li>
-													</ul>
-												</footer> -->
 					<div>
 						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
 													this.parentNode.getElementsByTagName('div')[0].style.display = '';
@@ -348,13 +326,13 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/assets/js/browser.min.js"></script>
+	<script src="/assets/js/breakpoints.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/main.js"></script>
 
 </body>
 
