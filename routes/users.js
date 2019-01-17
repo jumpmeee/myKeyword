@@ -85,17 +85,30 @@ module.exports = function (app, User) {
     res.send('respond with a resource');
   });
 
-  router.post('/result', function (req, res, next) {
+  // router.post('/result', function (req, res, next) {
 
-    let top3 = sample1;
-    top3.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
+  //   let top3 = sample1;
+  //   top3.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
 
-    console.log(req.body.Email + "???");
-    console.log(req.body);
-    console.log(top3);
-    console.log("==========================================");
+  //   console.log(req.body.Email + "???");
+  //   console.log(req.body);
+  //   console.log(top3);
+  //   console.log("==========================================");
 
-    res.render('result', { Email: req.body.Email, top3: top3 });
+  //   res.render('result', { Email: req.body.Email, top3: top3 });
+  // });
+
+  //결과 띄우는 부분.
+  router.post('/result', (req, res, next) => {
+/* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
+체크 된 것들 cnt를 하나씩 올려야해 1로, 
+그 다음에 top3를 띄워줘야하고.
+cnt가 0보다 큰 애들을 표에다가 찍어줘야하고
+
+*/
+
+
+
   });
 
   //create
@@ -159,6 +172,7 @@ module.exports = function (app, User) {
   router.get('/delete/:id', (req, res) => {
     User.deleteOne({ email: req.params.id }, (err, output) => {
         if(err) return res.status(500).json({ error: "database failure" });
+        
         res.status(204).end();
     })
 });

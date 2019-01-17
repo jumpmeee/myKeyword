@@ -29,6 +29,7 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 
+
 body {
 	line-height: 1;
 }
@@ -1997,6 +1998,10 @@ input, select, textarea {
 		font-size: 0.9em;
 		font-weight: 400;
 		margin: 0 0 1em 0;
+		width: 190px; 
+		text-align:center; 
+
+
 	}
 
 	input[type="text"],
@@ -3457,21 +3462,25 @@ input, select, textarea {
 
 			#main input[type="checkbox"] + label:before,
 			#main input[type="radio"] + label:before {
-				background: rgba(222, 222, 222, 0.25);
-				border-color: #dddddd;
+				background: #ffffff;
+				/* border-color: #dddddd; */
 			}
 
 		#main input[type="checkbox"]:checked + label:before,
 		#main input[type="radio"]:checked + label:before {
-			background-color: #636363;
-			border-color: #636363;
-			color: #ffffff;
+			/* background-color: #636363;
+			border-color: #636363; */
+			color:#8cc9f0;
+			margin-left:15px; 
+
+
 		}
 
 		#main input[type="checkbox"]:focus + label:before,
 		#main input[type="radio"]:focus + label:before {
-			border-color: #8cc9f0;
-			box-shadow: 0 0 0 1px #8cc9f0;
+			/* border-color: #8cc9f0;
+			box-shadow: 0 0 0 1px #8cc9f0; */
+			margin-left:5px; 
 		}
 
 		#main ::-webkit-input-placeholder {
@@ -3762,3 +3771,4 @@ input, select, textarea {
 			}
 
 		}
+	
