@@ -1994,13 +1994,11 @@ input, select, textarea {
 	}
 
 	label {
-		display: block;
-		font-size: 0.9em;
+		display: inline-block;
 		font-weight: 400;
-		margin: 0 0 1em 0;
-		width: 190px; 
+		margin: 0 0 0.5em 0;
+		width: 200px; 
 		text-align:center; 
-
 
 	}
 
