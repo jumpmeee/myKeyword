@@ -10,9 +10,9 @@
 	<title>나의 키워드 - 무료 성향 분석</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="/assets/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<link rel="stylesheet" href="/assets/css/noscript.css" />
 	</noscript>
 	<style> 
   
@@ -145,7 +145,7 @@
 		<!-- Header -->
 		<header id="header" class="alt">
 			<span class="q">
-				<img src="images/q.svg" alt="" />
+				<img src="/images/q.svg" alt="" />
 			</span>
 			<h1>나의 키워드</h1>
 			<p>내가 아는 나와 남들이 아는 나의 차이는?
@@ -217,12 +217,13 @@
 				<header class="major">
 					<h2>결과보기</h2>
 				</header>
-				<form name="index_email" action="/result" method="POST">
+				<form name="index_email" action="/users/result" method="POST">
 
 					<!-- <input type="text" name="Email" placeholder="example@example.com"> -->
 					<div class="actions ">
 						<!-- <label><b>이메일을 입력해주세요.</b></label>  -->
 						<input type="text" placeholder="example@example.com" name="uname" required>
+						<input type="hidden" name="email" value="testemail@test.com">
 						<footer class="major">
 							<button class="actions special" type="submit">확인</button>
 						</footer>
@@ -302,13 +303,13 @@
 
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/assets/js/browser.min.js"></script>
+	<script src="/assets/js/breakpoints.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/main.js"></script>
 
 </body>
 

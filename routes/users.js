@@ -2,46 +2,53 @@ module.exports = function (app, User) {
   const express = require('express');
   const router = express.Router();
 
-  var sample1 = new Array("단순한","개척적인","결단력있는","경쟁적인","고집이 있는",
-  "공격적인","단호한","도전적인","독립적인","목표를 이루는",
-  "성취가 중요한","실행력있는","엄격한","의지가 강한","논쟁하는",
-  "주도적인","지도력있는","참을성이 부족한","추진력있는","활동적인",
-  "객관적인","계획적인","관례를 따르는","근거가 중요한","꼼꼼한",
-  "끈기있는","논리적인","단계적인","분석적인","비판적인",
-  "시간이걸리는","신중한","완벽을 추구하는","일관성있는","정확한",
-  "조직화하는","체계적인","침착한","한가지에 집중하는","현실감있는",
-  "감성적인","낙관적인","대인관계가 넓은","언변이 뛰어난","모임을 즐기는",
-  "변덕스러운","변화를 즐기는","사교적인","생기발랄한","설득력있는",
-  "쉽게 실증내는","에너지있는","열정적인","유머감각있는","융통성있는",
-  "인기있는","적응력이 뛰어난","즐거움을 찾는","충동적인","타인에 민감한",
-  "이해가빠른","기획하는","동기유발하는","디테일약한","마무리에 약한",
-  "문제를 해결하는","미래지향적인","사색하는","전략적인","생각이 빠른",
-  "소신있는","아이디어가 많은","원리를 파악하는","이성적인","창의적인",
-  "추상적인","큰 그림을 보는","통찰력있는","혁신적인","호기심많은",
-  "겸손한","경청하는","느긋한","대인관계가 원만한","동정심이 많은",
-  "불확실이 두려운","성실한","수동적인","수용적인","안정적인",
-  "온화한","욕심이 적은","우유부단한","이해심 많은","인내심있는",
-  "인심 좋은","절제력있는","팀웍이 좋은","현재에 충실한","협조적인");
+  var sample1 = new Array("단순한", "개척적인", "결단력있는", "경쟁적인", "고집이 있는",
+    "공격적인", "단호한", "도전적인", "독립적인", "목표를 이루는",
+    "성취가 중요한", "실행력있는", "엄격한", "의지가 강한", "논쟁하는",
+    "주도적인", "지도력있는", "참을성이 부족한", "추진력있는", "활동적인",
+    "객관적인", "계획적인", "관례를 따르는", "근거가 중요한", "꼼꼼한",
+    "끈기있는", "논리적인", "단계적인", "분석적인", "비판적인",
+    "시간이걸리는", "신중한", "완벽을 추구하는", "일관성있는", "정확한",
+    "조직화하는", "체계적인", "침착한", "한가지에 집중하는", "현실감있는",
+    "감성적인", "낙관적인", "대인관계가 넓은", "언변이 뛰어난", "모임을 즐기는",
+    "변덕스러운", "변화를 즐기는", "사교적인", "생기발랄한", "설득력있는",
+    "쉽게 실증내는", "에너지있는", "열정적인", "유머감각있는", "융통성있는",
+    "인기있는", "적응력이 뛰어난", "즐거움을 찾는", "충동적인", "타인에 민감한",
+    "이해가빠른", "기획하는", "동기유발하는", "디테일약한", "마무리에 약한",
+    "문제를 해결하는", "미래지향적인", "사색하는", "전략적인", "생각이 빠른",
+    "소신있는", "아이디어가 많은", "원리를 파악하는", "이성적인", "창의적인",
+    "추상적인", "큰 그림을 보는", "통찰력있는", "혁신적인", "호기심많은",
+    "겸손한", "경청하는", "느긋한", "대인관계가 원만한", "동정심이 많은",
+    "불확실이 두려운", "성실한", "수동적인", "수용적인", "안정적인",
+    "온화한", "욕심이 적은", "우유부단한", "이해심 많은", "인내심있는",
+    "인심 좋은", "절제력있는", "팀웍이 좋은", "현재에 충실한", "협조적인");
 
   /* GET users listing. */
   router.get('/', function (req, res, next) {
     res.send('respond with a resource');
   });
 
-  // router.post('/result', function (req, res, next) {
-
-  //   let top3 = sample1;
-  //   top3.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
-
-  //   console.log(req.body.Email + "???");
-  //   console.log(req.body);
-  //   console.log(top3);
-  //   console.log("==========================================");
-
-  //   res.render('result', { Email: req.body.Email, top3: top3 });
-  // });
-
   //결과 띄우는 부분.
+  router.post('/indexrslt', (req, res, next) => {
+    let email = req.body.email;
+
+    User.find({ email: req.params.id }, (err, users) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+/* 덱스에서 결과창 보는 기능인데, 뭘 해줘야하냐면 find해서
+저장된 값은 가져오고 others에 있는걸 cnt 해야하고, 아니면 arr을 저장하는걸로 수정해서 바로 그걸 가져오는 식으로 하면 괜찮겠다.
+하여튼 그래서 그거 더해가지고 cnt 뿌려줘야함 data로 
+top3도 해야하고 
+*/
+      res.json(users);
+    })
+
+
+
+  });
+
   router.post('/result', (req, res, next) => {
     /* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
     insert 할때부터 cnt를 올릴려면 그 keyWord 100개를 어쨌든 같이 up 해줘야하는거잖아
@@ -59,17 +66,16 @@ module.exports = function (app, User) {
     //여기는 일단, 처음으로 유저가 했을때를 생각하면서 하는거야.
     console.log("=======================================insert");
 
-   console.log(req.body.chk);
-   console.log(req.body.email);
+    console.log(req.body.chk);
+    console.log(req.body.email);
 
     let rslt = req.body.chk;
     let user = new User();
 
     let arr = new Array(100).fill(0);
-    for(let i in rslt) {
-      arr[i-1]++;
+    for (let i in rslt) {
+      arr[rslt[i] - 1]++;
     }
-
     console.log(arr);
 
     user.email = req.body.email;
@@ -84,9 +90,9 @@ module.exports = function (app, User) {
 
       let data = [];
       //결과를 출력해야하는데, top3는 totCnt를 기준으로 할거니까 user.totCnt를 정렬해서 3개까지만 출력하면 되. 이걸 node에서 어떻게 하게
-      for(let i in arr) {
-        if(arr[i] > 0) {
-          data.push({keyWord: sample1[i], cnt: arr[i]});
+      for (let i in arr) {
+        if (arr[i] > 0) {
+          data.push({ keyWord: sample1[i], cnt: arr[i] });
         }
       }
       data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
@@ -96,6 +102,39 @@ module.exports = function (app, User) {
       console.log(req.body.email);
       res.render('result', { Email: req.body.email, data: data });
     });
+  });
+
+
+
+  //필요한게 대상의 email(검색용)/타인email(push용)/
+
+  router.post('/others', function (req, res, next) {
+    console.log("----------other check--------------");
+    console.log(req.body.chk);
+    console.log(req.body.email);
+    console.log(req.body.email_oth)
+
+    let chk = req.body.chk;
+    let email_user = req.body.email;
+    let email_oth = req.body.email_oth;
+
+
+    User.findOne({ email: email_user }, (err, user) => {
+      if (err) return res.status(500).json({ error: 'database failure' });
+      if (!user) return res.status(404).json({ error: 'user not found' });
+
+      if (email_oth && chk) {
+        user.others.push({ name: email_oth, otherCh: chk });
+        user.otherCnt = user.otherCnt + 1;
+      }
+
+      user.save(function (err) {
+        if (err) res.status(500).json({ error: 'failed to update' });
+      })
+
+    })
+    //res.json({ message: 'user updated' });
+    res.render('index', { title: "others complete" });
   });
 
   router.get('/update', (req, res, next) => {
@@ -137,6 +176,10 @@ module.exports = function (app, User) {
   return router;
 }
 
+
+
+
+
 // //create
   // router.get('/result/:id', function (req, res, next) {
 
@@ -156,7 +199,7 @@ module.exports = function (app, User) {
   //   //res.render('result', { Email: req.body.Email, top3: top3 });
   // });
 
-  
+
   // router.get('/result/find/:id', (req, res, next) => {
   //   User.find({ email: req.params.id }, (err, users) => {
   //     if (err) {
@@ -167,3 +210,18 @@ module.exports = function (app, User) {
   //     res.json(users);
   //   })
   // })
+
+
+
+  // router.post('/result', function (req, res, next) {
+
+  //   let top3 = sample1;
+  //   top3.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
+
+  //   console.log(req.body.Email + "???");
+  //   console.log(req.body);
+  //   console.log(top3);
+  //   console.log("==========================================");
+
+  //   res.render('result', { Email: req.body.Email, top3: top3 });
+  // });
