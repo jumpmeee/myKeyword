@@ -2,7 +2,7 @@ module.exports = function (app, User) {
   const express = require('express');
   const router = express.Router();
 
-  var arr = new Array("단순한","개척적인","결단력있는","경쟁적인","고집이 있는",
+  var sample1 = new Array("단순한","개척적인","결단력있는","경쟁적인","고집이 있는",
   "공격적인","단호한","도전적인","독립적인","목표를 이루는",
   "성취가 중요한","실행력있는","엄격한","의지가 강한","논쟁하는",
   "주도적인","지도력있는","참을성이 부족한","추진력있는","활동적인",
