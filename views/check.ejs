@@ -10,9 +10,9 @@
 	<title>나의 키워드 - 체크하기</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="/assets/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
 </head>
 
 <body class="is-preload" onload="addBox()">
@@ -67,51 +67,51 @@
 		}
 
 
-		function addBox(){
+		function addBox() {
 
 			var str = "";
 
-			var arr = new Array("단순한","개척적인","결단력있는","경쟁적인","고집이 있는",
-			"공격적인","단호한","도전적인","독립적인","목표를 이루는",
-			"성취가 중요한","실행력있는","엄격한","의지가 강한","논쟁하는",
-			"주도적인","지도력있는","참을성이 부족한","추진력있는","활동적인",
-			"객관적인","계획적인","관례를 따르는","근거가 중요한","꼼꼼한",
-			"끈기있는","논리적인","단계적인","분석적인","비판적인",
-			"시간이걸리는","신중한","완벽을 추구하는","일관성있는","정확한",
-			"조직화하는","체계적인","침착한","한가지에 집중하는","현실감있는",
-			"감성적인","낙관적인","대인관계가 넓은","언변이 뛰어난","모임을 즐기는",
-			"변덕스러운","변화를 즐기는","사교적인","생기발랄한","설득력있는",
-			"쉽게 실증내는","에너지있는","열정적인","유머감각있는","융통성있는",
-			"인기있는","적응력이 뛰어난","즐거움을 찾는","충동적인","타인에 민감한",
-			"이해가빠른","기획하는","동기유발하는","디테일약한","마무리에 약한",
-			"문제를 해결하는","미래지향적인","사색하는","전략적인","생각이 빠른",
-			"소신있는","아이디어가 많은","원리를 파악하는","이성적인","창의적인",
-			"추상적인","큰 그림을 보는","통찰력있는","혁신적인","호기심많은",
-			"겸손한","경청하는","느긋한","대인관계가 원만한","동정심이 많은",
-			"불확실이 두려운","성실한","수동적인","수용적인","안정적인",
-			"온화한","욕심이 적은","우유부단한","이해심 많은","인내심있는",
-			"인심 좋은","절제력있는","팀웍이 좋은","현재에 충실한","협조적인");
+			var arr = new Array("단순한", "개척적인", "결단력있는", "경쟁적인", "고집이 있는",
+				"공격적인", "단호한", "도전적인", "독립적인", "목표를 이루는",
+				"성취가 중요한", "실행력있는", "엄격한", "의지가 강한", "논쟁하는",
+				"주도적인", "지도력있는", "참을성이 부족한", "추진력있는", "활동적인",
+				"객관적인", "계획적인", "관례를 따르는", "근거가 중요한", "꼼꼼한",
+				"끈기있는", "논리적인", "단계적인", "분석적인", "비판적인",
+				"시간이걸리는", "신중한", "완벽을 추구하는", "일관성있는", "정확한",
+				"조직화하는", "체계적인", "침착한", "한가지에 집중하는", "현실감있는",
+				"감성적인", "낙관적인", "대인관계가 넓은", "언변이 뛰어난", "모임을 즐기는",
+				"변덕스러운", "변화를 즐기는", "사교적인", "생기발랄한", "설득력있는",
+				"쉽게 실증내는", "에너지있는", "열정적인", "유머감각있는", "융통성있는",
+				"인기있는", "적응력이 뛰어난", "즐거움을 찾는", "충동적인", "타인에 민감한",
+				"이해가빠른", "기획하는", "동기유발하는", "디테일약한", "마무리에 약한",
+				"문제를 해결하는", "미래지향적인", "사색하는", "전략적인", "생각이 빠른",
+				"소신있는", "아이디어가 많은", "원리를 파악하는", "이성적인", "창의적인",
+				"추상적인", "큰 그림을 보는", "통찰력있는", "혁신적인", "호기심많은",
+				"겸손한", "경청하는", "느긋한", "대인관계가 원만한", "동정심이 많은",
+				"불확실이 두려운", "성실한", "수동적인", "수용적인", "안정적인",
+				"온화한", "욕심이 적은", "우유부단한", "이해심 많은", "인내심있는",
+				"인심 좋은", "절제력있는", "팀웍이 좋은", "현재에 충실한", "협조적인");
 
 
-			for(var i in arr){
-				
-				str +=  "<div class='actions small'><input value='";
-				str +=  parseInt(i)+1;
-				str +=  "' type='checkbox' id='";
-				str +=  (i+1);
-				str +=  "' name='chk' onclick='count_ck(this)''><label size = 10 for='";
-				str +=  (i+1);
-				str +=  "'>";
-				str +=  arr[i];
-				str +=  "</label></div>";
+			for (var i in arr) {
 
-			} 
+				str += "<div class='actions small'><input value='";
+				str += parseInt(i) + 1;
+				str += "' type='checkbox' id='";
+				str += (i + 1);
+				str += "' name='chk' onclick='count_ck(this)''><label size = 10 for='";
+				str += (i + 1);
+				str += "'>";
+				str += arr[i];
+				str += "</label></div>";
+
+			}
 
 			document.getElementById("inHere").innerHTML = str;
 
 		}
 
-		
+
 	</script>
 
 
@@ -124,27 +124,35 @@
 			<h1>체크하기</h1>
 			<p>100개의 키워드 중 검사 대상을 잘 설명해 준다고 느끼시는 단어 12개를 골라주세요.</p>
 		</header>
-		
+
 		<nav id="nav">
-			<span id="test">12개 남았습니다.</span>						
-		</nav> 
-		
+			<span id="test">12개 남았습니다.</span>
+		</nav>
+
 		<!-- Main -->
 		<div id="main">
 			<!-- Content -->
-			<section id="content" class="main">	
-				<form action="/result" accept-charset="utf-8" name="check_info" method="POST">
-					<input type="hidden" name="email" value=testemail@test.com><!--test용 hidden 이메일 선언-->
-					<div class="row" id="inHere">
-						
-					</div>
+			<section id="content" class="main">
+				<% if(!email) {%>
+				<form action="/users/result" accept-charset="utf-8" name="check_info" method="POST">
+					<% }else{ %>
+					<form action="/users/others" accept-charset="utf-8" name="check_info" method="POST">
+						<% } %>
 
-					<br>
-					<ul class="actions special">
-						<li><button class="button" id="submit" disabled="disabled" onclick="click_submit(this)">제출하기</button>
-						</li>
-					</ul>
-				</form>
+
+						<input type="hidden" name="email" value="testemail@test.com">
+						<input type="hidden" name="email_oth" value="others@tes.com">
+						<!--test용 hidden 이메일 선언-->
+						<div class="row" id="inHere">
+
+						</div>
+
+						<br>
+						<ul class="actions special">
+							<li><button class="button" id="submit" disabled="disabled" onclick="click_submit(this)">제출하기</button>
+							</li>
+						</ul>
+					</form>
 
 
 		</div>
@@ -163,13 +171,13 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/assets/js/browser.min.js"></script>
+	<script src="/assets/js/breakpoints.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/main.js"></script>
 
 </body>
 
