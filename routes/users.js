@@ -48,15 +48,15 @@ top3도 해야하고
       if (user.length == 0) return res.status(404);
 
       let data = []; //keyWord(String)랑, cnt(int)가 들어가야함.
-      
-      for(let i in user.totCnt) {
-        if(user.totCnt[i] > 0 ) {
+
+      for (let i = 0; i < user.totCnt.length; i++) {
+        if (user.totCnt[i] > 0) {
           console.log(i + " " + user.totCnt[i] + " " + sample1[i]);
           data.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
         }
       }
 
-      data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
+      data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
       console.log(data);
 
       res.render('result', { Email: user.email, data: data });
@@ -64,20 +64,20 @@ top3도 해야하고
     })
   });
 
-      /* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
-    insert 할때부터 cnt를 올릴려면 그 keyWord 100개를 어쨌든 같이 up 해줘야하는거잖아
-    너무 비효율적인거 같은데,
-    체크 된 것들 cnt를 하나씩 올려야해 1로, 
-    그 다음에 top3를 띄워줘야하고.
-    cnt가 0보다 큰 애들을 표에다가 찍어줘야하고
+  /* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
+insert 할때부터 cnt를 올릴려면 그 keyWord 100개를 어쨌든 같이 up 해줘야하는거잖아
+너무 비효율적인거 같은데,
+체크 된 것들 cnt를 하나씩 올려야해 1로, 
+그 다음에 top3를 띄워줘야하고.
+cnt가 0보다 큰 애들을 표에다가 찍어줘야하고
 
-    update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
+update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
 
 
-    그러면 일단 keyWord는 빼고 시작해볼까나.
-    */
+그러면 일단 keyWord는 빼고 시작해볼까나.
+*/
 
-    //여기는 일단, 처음으로 유저가 했을때를 생각하면서 하는거야.
+  //여기는 일단, 처음으로 유저가 했을때를 생각하면서 하는거야.
 
   router.post('/result', (req, res, next) => {
 
@@ -93,8 +93,8 @@ top3도 해야하고
     for (let i in rslt) {
       arr[rslt[i] - 1]++;
     }
-    console.log("arrrrrrrrrrrrrrrrrrrrrrrrr");
-    console.log(arr);
+    // console.log("arrrrrrrrrrrrrrrrrrrrrrrrr");
+    // console.log(arr);
 
     user.email = req.body.email;
     user.userCh = rslt;
@@ -119,10 +119,12 @@ top3도 해야하고
 
       // console.log(user.email);
       // console.log(req.body.email);
+      //matchData1 ==> 내가 했지만 남이 안한거
+      //matchData2 ==> 남이 했지만 내가 안한거
 
-      res.render('result', { Email: user.email, data: data });
+      res.render('result', { Email : user.email, data : data, matchData1 : null, matchData2 : null });
 
-    });   
+    });
   });
 
 
@@ -148,15 +150,19 @@ top3도 해야하고
         user.others.push({ name: email_oth, otherCh: chk });
         user.otherCnt = user.otherCnt + 1;
 
-        for(let i in chk) {
-          user.totCnt[chk[i] - 1] = user.totCnt[chk[i]-1] + 1;
+        for (let i in chk) {
+          user.totCnt[chk[i] - 1] = user.totCnt[chk[i] - 1] + 1;
         }
       }
 
       let temp = user.totCnt;
       console.log(temp);
 
-      user.set({totCnt : temp});
+      User.update({ email: email_user }, { $set: { totCnt : temp } }, (err, output) => {
+        if (err) res.status(500).json({ error: 'db fail' });
+        console.log(output);
+        if (!output.n) return res.status(404).json({ error: 'user not found' });
+      })
 
       user.save(function (err) {
         if (err) res.status(500).json({ error: 'failed to update' });
@@ -166,46 +172,8 @@ top3도 해야하고
     res.redirect('/');
   });
 
-  router.get('/update', (req, res, next) => {
-    console.log(req.query.id);
-    console.log(req.query.otherCnt);
-
-    User.findOne({ email: req.query.id }, (err, user) => {
-      if (err) return res.status(500).json({ error: 'database failure' });
-      if (!user) return res.status(404).json({ error: 'user not found' });
-
-      if (req.query.otherCnt) user.otherCnt = req.query.otherCnt;
-
-      user.save(function (err) {
-        if (err) res.status(500).json({ error: 'failed to update' });
-        res.json({ message: 'user updated' });
-      })
-    })
-  }) //put으로 변경할 수 있으면 변경할 것, check에서 넘기면서 ajax로 동작하게 하면 될듯.
-  //http://127.0.0.1:3000/users/update?id=srs112&otherCnt=1 example
-
-  router.get('/update2', (req, res, next) => {
-    User.update({ email: req.query.id }, { $set: req.query }, (err, output) => {
-      if (err) res.status(500).json({ error: 'db fail' });
-      console.log(output);
-      if (!output.n) return res.status(404).json({ error: 'user not found' });
-      res.json({ message: 'user updated' });
-      //{ n: 1, nModified: 0, ok: 1 } nModified는 변경한 document 갯수, n은 select된 document 갯수 기존 내용이 업데이트 할 내용과 같으면 nModified 는 0 으로 되기 때문에, n 값을 비교하여 성공여부를 판단합니다.
-    })
-  })
-
-  router.get('/delete/:id', (req, res) => {
-    User.deleteOne({ email: req.params.id }, (err, output) => {
-      if (err) return res.status(500).json({ error: "database failure" });
-
-      res.status(204).end();
-    })
-  });
-
   return router;
 }
-
-
 
 
 

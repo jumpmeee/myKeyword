@@ -7,7 +7,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/check', function(req, res, next) {
-  res.render('check', {email: undefined});
+
+  var uname = req.body.uname;
+
+  res.render('check', {email: uname});
   console.log(req.body);
   console.log("------------------------");
 });

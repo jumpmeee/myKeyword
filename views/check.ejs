@@ -5,7 +5,6 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-
 <head>
 	<title>나의 키워드 - 체크하기</title>
 	<meta charset="utf-8" />
@@ -27,16 +26,13 @@
 			var n = Number(td.innerHTML);
 			var btn = document.getElementById("submit");
 
-
 			for (var i = 0; i < chkbox.length; i++) {
-
 				if (chkbox[i].checked) {
 					chkCnt--
 					td.innerHTML = chkCnt + "개 남았습니다.";
 					btn.disabled = 'disabled';
 				}
 			}
-
 			if (chkCnt < 0) {
 				alert("12개를 초과했습니다.");
 				obj.checked = false;
@@ -51,18 +47,14 @@
 
 				td.innerHTML = "12개 남았습니다.";
 			}
-
 			if (chkCnt == 0) {
 				btn.disabled = false;
 			}
-
-
 		}
 
 		function click_submit(obj) {
 			alert("제출이 완료되었습니다.");
 			location.replace("/result");
-
 		}
 
 
@@ -133,9 +125,9 @@
 			<!-- Content -->
 			<section id="content" class="main">
 				<% if(!email) {%>
-				<form action="/users/result" accept-charset="utf-8" name="check_info" method="POST">
+				<form action="/users/result" accept-charset="utf-8" name="check_info" method="POST"> <!-- 자신이 선택했을 때-->
 					<% }else{ %>
-					<form action="/users/others" accept-charset="utf-8" name="check_info" method="POST">
+					<form action="/users/others" accept-charset="utf-8" name="check_info" method="POST"> <!-- 타인이 선택했을 때 -->
 						<% } %>
 
 
