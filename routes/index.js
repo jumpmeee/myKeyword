@@ -15,7 +15,8 @@ router.post('/check', function(req, res, next) {
 router.get('/otherscheck/:id', (req, res, next) => {
   console.log('===============others check');
   res.render('check', {email: req.params.id});
-}) //test 링크는 일단 localhost:3000/otherscheck/:id
+}) 
+//test 링크는 일단 localhost:3000/otherscheck/:id
 // _id 값으로 링크 만들면 될듯. 
 
 module.exports = router;

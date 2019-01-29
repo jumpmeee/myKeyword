@@ -29,28 +29,42 @@ module.exports = function (app, User) {
   });
 
   //결과 띄우는 부분.
-  router.post('/indexrslt', (req, res, next) => {
-    let email = req.body.email;
-
-    User.find({ email: req.params.id }, (err, users) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-/* 덱스에서 결과창 보는 기능인데, 뭘 해줘야하냐면 find해서
+  /* 덱스에서 결과창 보는 기능인데, 뭘 해줘야하냐면 find해서
 저장된 값은 가져오고 others에 있는걸 cnt 해야하고, 아니면 arr을 저장하는걸로 수정해서 바로 그걸 가져오는 식으로 하면 괜찮겠다.
 하여튼 그래서 그거 더해가지고 cnt 뿌려줘야함 data로 
 top3도 해야하고 
 */
-      res.json(users);
+  router.post('/indexrslt', (req, res, next) => {
+    console.log("====indexrslt");
+    let email = req.body.email;
+
+    //find 해줄까 findOne 해줄까 ㅇㅂㅇ
+    User.findOne({ email: email }, (err, user) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      if (!user) return res.status(404); // 못찾았을때, 
+      if (user.length == 0) return res.status(404);
+
+      let data = []; //keyWord(String)랑, cnt(int)가 들어가야함.
+      
+      for(let i in user.totCnt) {
+        if(user.totCnt[i] > 0 ) {
+          console.log(i + " " + user.totCnt[i] + " " + sample1[i]);
+          data.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
+        }
+      }
+
+      data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
+      console.log(data);
+
+      res.render('result', { Email: user.email, data: data });
+
     })
-
-
-
   });
 
-  router.post('/result', (req, res, next) => {
-    /* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
+      /* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
     insert 할때부터 cnt를 올릴려면 그 keyWord 100개를 어쨌든 같이 up 해줘야하는거잖아
     너무 비효율적인거 같은데,
     체크 된 것들 cnt를 하나씩 올려야해 1로, 
@@ -64,6 +78,9 @@ top3도 해야하고
     */
 
     //여기는 일단, 처음으로 유저가 했을때를 생각하면서 하는거야.
+
+  router.post('/result', (req, res, next) => {
+
     console.log("=======================================insert");
 
     console.log(req.body.chk);
@@ -76,6 +93,7 @@ top3도 해야하고
     for (let i in rslt) {
       arr[rslt[i] - 1]++;
     }
+    console.log("arrrrrrrrrrrrrrrrrrrrrrrrr");
     console.log(arr);
 
     user.email = req.body.email;
@@ -84,11 +102,12 @@ top3도 해야하고
 
     user.save(function (err) {
       if (err) {
-        console.error(err);
+        console.error(err); //여기서 에러 처리 해줘야함. 제대로 들어가지 않았다던지, !!!!!!!!!!!!!!!! 중요!!!!!!!!!!
         return;
       }
 
       let data = [];
+
       //결과를 출력해야하는데, top3는 totCnt를 기준으로 할거니까 user.totCnt를 정렬해서 3개까지만 출력하면 되. 이걸 node에서 어떻게 하게
       for (let i in arr) {
         if (arr[i] > 0) {
@@ -98,10 +117,12 @@ top3도 해야하고
       data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
       console.log(data);
 
-      console.log(user.email);
-      console.log(req.body.email);
-      res.render('result', { Email: req.body.email, data: data });
-    });
+      // console.log(user.email);
+      // console.log(req.body.email);
+
+      res.render('result', { Email: user.email, data: data });
+
+    });   
   });
 
 
@@ -126,15 +147,23 @@ top3도 해야하고
       if (email_oth && chk) {
         user.others.push({ name: email_oth, otherCh: chk });
         user.otherCnt = user.otherCnt + 1;
+
+        for(let i in chk) {
+          user.totCnt[chk[i] - 1] = user.totCnt[chk[i]-1] + 1;
+        }
       }
+
+      let temp = user.totCnt;
+      console.log(temp);
+
+      user.set({totCnt : temp});
 
       user.save(function (err) {
         if (err) res.status(500).json({ error: 'failed to update' });
       })
 
     })
-    //res.json({ message: 'user updated' });
-    res.render('index', { title: "others complete" });
+    res.redirect('/');
   });
 
   router.get('/update', (req, res, next) => {
