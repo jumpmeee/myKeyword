@@ -3842,7 +3842,11 @@ input, select, textarea {
 			background-color: #fefefe; 
 			margin: 5% auto 15% auto;  
 			border: 1px solid #888; 
+<<<<<<< HEAD
 			width: 80%;  
+=======
+			width: 40%;  
+>>>>>>> 4fe783932be5538bd0865caa14531fff687756d6
 		} 
 		  
 		.close { 
