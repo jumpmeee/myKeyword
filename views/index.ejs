@@ -14,112 +14,9 @@
 	<noscript>
 		<link rel="stylesheet" href="/assets/css/noscript.css" />
 	</noscript>
-	<style> 
-  
-			input[type=text], input[type=password] { 
-				width: 90%; 
-				padding: 12px 20px; 
-				margin: 8px 0; 
-				display: inline-block; 
-				border: 1px solid #ccc; 
-				box-sizing: border-box; 
-			} 
-			  
-		
-			button:hover { 
-				opacity: 0.8; 
-			} 
-			  
-			  
-			.cancelbtn { 
-				width: auto; 
-				padding: 10px 18px; 
-				background-color: #f44336; 
-			} 
-			  
-			  
-			.imgcontainer { 
-				text-align: center; 
-				margin: 24px 0 12px 0; 
-				position: relative; 
-			} 
-			  
-			img.avatar { 
-				width: 20%; 
-				border-radius: 20%; 
-			} 
-			  
-			.container { 
-				text-align: center; 
-				padding: 16px; 
-			} 
-			  
-			span.psw { 
-				float: right; 
-				padding-top: 16px; 
-			} 
-			  
-			  
-			.modal { 
-				display: none;  
-				position: fixed; 
-				z-index: 1;  
-				left: 0; 
-				top: 0; 
-				width: 100%; 
-				height: 100%; 
-				overflow: auto;  
-				background-color: rgb(0,0,0); 
-				background-color: rgba(0,0,0,0.4); 
-				padding-top: 60px; 
-			} 
-			  
-			  
-			.modal-content {  /*흰배경*/
-				background-color: #fefefe; 
-				margin: 5% auto 15% auto;  
-				border: 1px solid #888; 
-				width: 40%;  
-			} 
-			  
-			.close { 
-				position: absolute; 
-				right: 20px; 
-				top: 100; 
-				color: #000; 
-				font-size: 35px; 
-				font-weight: bold; 
-			} 
-			  
-			.close:hover, 
-			.close:focus { 
-				color: red; 
-				cursor: pointer; 
-			} 
-			  
-			.animate { 
-				-webkit-animation: animatezoom 0.6s; 
-				animation: animatezoom 0.6s 
-			} 
-			  
-			@-webkit-keyframes animatezoom { 
-				from {-webkit-transform: scale(0)}  
-				to {-webkit-transform: scale(1)} 
-			} 
-				@keyframes animatezoom { 
-				from {transform: scale(0)}  
-				to {transform: scale(1)} 
-			} 
-			@media screen and (max-width: 300px) { 
-				span.psw { 
-				   display: block; 
-				   float: none; 
-				} 
-				.cancelbtn { 
-				   width: 100%; 
-				} 
-			} 
-			</style> 
+	<style>
+
+			</style>
 </head>
 
 <body class="is-preload">
@@ -178,28 +75,28 @@
 							<h2>처음이세요?</h2>
 						</header>
 						<p>자신의 베스트 키워드를 지금 바로 알아보세요.</p>
-						<button onclick="document.getElementById('id01').style.display='block' ">시작하기</button>
+						<button onclick="document.getElementById('id01').style.display='block'">시작하기</button>
 						<!-- <a href="#" class="button" data-toggle="modal" data-target="#login-modal">Login</a> -->
-						<div id="id01" class="modal"> 
-    
-								<form class="modal-content animate" action="/check" method="POST"> 
-								  <div class="imgcontainer"> 
-									<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> 
+						<div id="id01" class="modal">
+
+							<form class="modal-content animate" action="/check" method="POST">
+								<div class="imgcontainer">
+									<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
 									<!-- <img src="images/q.svg" alt="Avatar" class="avatar">  -->
-								  </div> 
-								
-								  <div class="container"> 
-									<label><b>이메일을 입력해주세요.</b></label> 
-									<input type="text" placeholder="example@example.com" name="uname" required> 
+								</div>
+
+								<div class="container">
+									<label><b>이메일을 입력해주세요.</b></label>
+									<input type="text" placeholder="example@example.com" name="uname" required>
 									<footer class="action">
-										<button type="submit">확인</button> 
+										<button type="submit">확인</button>
 									</footer>
-									
-								  </div> 
-								
-								
-								</form> 
-							  </div> 
+
+								</div>
+
+
+							</form>
+						</div>
 						<!-- 
 						<ul class="actions">
 							<li>
@@ -241,75 +138,15 @@
 		</div>
 
 		<!-- Footer -->
-		<footer id="footer">
-			<section>
-				<h2>Aliquam sed mauris</h2>
-				<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore
-					veroeros. eget
-					dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-				<ul class="actions">
-					<li>
-						<a href="/check" class="button">Learn More</a>
-					</li>
-				</ul>
-			</section>
-			<section>
-				<h2>Contact Us</h2>
-				<dl class="alt">
-					<dt>Address</dt>
-					<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-					<dt>Phone</dt>
-					<dd>(000) 000-0000 x 0000</dd>
-					<dt>Email</dt>
-					<dd>
-						<a href="#">information@untitled.tld</a>
-					</dd>
-				</dl>
-				<ul class="icons">
-					<li>
-						<a href="#" class="icon fa-twitter alt">
-							<span class="label">Twitter</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="icon fa-facebook alt">
-							<span class="label">Facebook</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="icon fa-instagram alt">
-							<span class="label">Instagram</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="icon fa-github alt">
-							<span class="label">GitHub</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="icon fa-dribbble alt">
-							<span class="label">Dribbble</span>
-						</a>
-					</li>
-				</ul>
-			</section>
-			<p class="copyright">&copy; Untitled. Design:
-				<a href="https://html5up.net">HTML5 UP</a>.</p>
-		</footer>
-
-	</div>
-
-
-
-
-	<!-- Scripts -->
-	<script src="/assets/js/jquery.min.js"></script>
-	<script src="/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/assets/js/jquery.scrolly.min.js"></script>
-	<script src="/assets/js/browser.min.js"></script>
-	<script src="/assets/js/breakpoints.min.js"></script>
-	<script src="/assets/js/util.js"></script>
-	<script src="/assets/js/main.js"></script>
+		<% include ./footer %>
+		<!-- Scripts -->
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/jquery.scrollex.min.js"></script>
+		<script src="/assets/js/jquery.scrolly.min.js"></script>
+		<script src="/assets/js/browser.min.js"></script>
+		<script src="/assets/js/breakpoints.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<script src="/assets/js/main.js"></script>
 
 </body>
 

@@ -25,7 +25,7 @@ module.exports = function (app, User) {
 
   /* GET users listing. */
   router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
+    res.redirect('/');
   });
 
   router.post('/indexrslt', (req, res, next) => {
@@ -39,12 +39,13 @@ module.exports = function (app, User) {
         return;
       }
       if (!user) return res.status(404); // 못찾았을때, 
-      if (user.length == 0) return res.status(404);
+      if (user.length == 0) return res.status(404); // 이거 지워도 될듯 
 
       let data = new Object(); //keyWord(String)랑, cnt(int)가 들어가야함.
       data.keyWords = [];
       data.matchMoOx = [];
       data.matchMxOo = [];
+      data.link = "localhost:3000/otherscheck/" + user._id;
 
       let chNum = []; // 선택받은 숫자
 
@@ -55,12 +56,10 @@ module.exports = function (app, User) {
           data.keyWords.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
         }
       }
-
+      data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
       // console.log("chNum=====");
       // console.log(chNum);
-
-
-      data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
+      // console.log(user._id);
 
       if (!user.otherCnt) {
         data.matchMoOx = null;
@@ -83,7 +82,7 @@ module.exports = function (app, User) {
           chNum.splice(chNum.indexOf(user.userCh[i]), 1); //userCh에 있는 숫자를 빼는 것,
         }
 
-        data.matchPoint = ((matchCnt/12) * 100).toFixed(2); // 12 == userCh.length
+        data.matchPoint = ((matchCnt/uch.length) * 100).toFixed(2); // 12 == userCh.length
         // console.log("MxOo");
         // console.log(chNum);
 
@@ -93,7 +92,7 @@ module.exports = function (app, User) {
         }
       }
 
-      console.log(data);
+      // console.log(data);
 
       res.render('result', { Email: user.email, data: data });
 
@@ -118,6 +117,7 @@ module.exports = function (app, User) {
     user.email = req.body.email;
     user.userCh = rslt;
     user.totCnt = arr;
+    console.log("user._id" + user._id);
 
     user.save(function (err) {
       if (err) {
@@ -130,6 +130,7 @@ module.exports = function (app, User) {
       data.matchMoOx = null;
       data.matchMxOo = null;
       data.matchPoint = null;
+      data.link = "localhost:3000/otherscheck/" + user._id;
 
       for (let i in arr) {
         if (arr[i] > 0) {
@@ -138,7 +139,7 @@ module.exports = function (app, User) {
       }
       data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
 
-      console.log(data);
+      // console.log(data);
       // console.log(user.email);
       // console.log(req.body.email);
 
@@ -152,14 +153,14 @@ module.exports = function (app, User) {
   router.post('/others', function (req, res, next) {
     console.log("----------other check--------------");
     console.log(req.body.chk);
-    console.log(req.body.email);
-    console.log(req.body.email_oth)
+    console.log(req.body.linkUserId); //이걸 userId 로 수정해야함. id로 조회하는거니까
+    console.log(req.body.email_oth) //이건 다른 사람 이메일인데 이거 만들어야 붙일듯 
 
     let chk = req.body.chk;
-    let email_user = req.body.email;
+    let linkUserId = req.body.linkUserId;
     let email_oth = req.body.email_oth;
 
-    User.findOne({ email: email_user }, (err, user) => {
+    User.findOne({ _id: linkUserId }, (err, user) => {
       if (err) return res.status(500).json({ error: 'database failure' });
       if (!user) return res.status(404).json({ error: 'user not found' });
 
@@ -173,9 +174,9 @@ module.exports = function (app, User) {
       }
 
       let temp = user.totCnt;
-      console.log(temp);
+      // console.log(temp);
 
-      User.update({ email: email_user }, { $set: { totCnt: temp } }, (err, output) => {
+      User.update({ _id: linkUserId }, { $set: { totCnt: temp } }, (err, output) => {
         if (err) res.status(500).json({ error: 'db fail' });
         console.log(output);
         if (!output.n) return res.status(404).json({ error: 'user not found' });

@@ -96,8 +96,6 @@
 							</section>
 						</div>
 					</div>
-
-
 				</section>
 
 				<hr />
@@ -106,7 +104,8 @@
 					<header class="major">
 						<h2>Matching point</h2>
 					</header>
-					<h1><b><%= data.matchPoint %> % </b></h1>
+					<h1><b>
+							<%= data.matchPoint %> % </b></h1>
 
 					<div>
 						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
@@ -140,14 +139,6 @@
 											</tr>
 											<% } %>
 										</tbody>
-										<tfoot>
-											<tr>
-												<td colspan="2"></td>
-												<td>
-													<%= data.matchMoOx.length %>
-												</td>
-											</tr>
-										</tfoot>
 									</table>
 								</div>
 
@@ -165,7 +156,9 @@
 										<tbody>
 											<% sum = 0; j = 1; for(let i in data.matchMxOo) {  %>
 											<tr>
-												<td><%= j++ %></td>
+												<td>
+													<%= j++ %>
+												</td>
 												<td>
 													<%= data.matchMxOo[i].keyWord %>
 												</td>
@@ -175,14 +168,14 @@
 											</tr>
 											<% sum += data.matchMxOo[i].cnt}; %>
 										</tbody>
-										<tfoot>
+										<!-- <tfoot>
 											<tr>
 												<td colspan="2"></td>
 												<td>
 													<%= sum %>
 												</td>
 											</tr>
-										</tfoot>
+										</tfoot> -->
 									</table>
 								</div>
 							</section>
@@ -206,6 +199,7 @@
 				<hr />
 
 				<footer class="major">
+					<h4><b>링크공유하기 : <%= data.link %></b></h4> <!-- 클립보드로 복사하기 만들기 -->
 					<ul class="actions special">
 						<li><a href="/" class="button">홈으로</a></li>
 					</ul>

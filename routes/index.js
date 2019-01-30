@@ -7,17 +7,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/check', function(req, res, next) {
-
-  var uname = req.body.uname;
-
-  res.render('check', {email: uname});
   console.log(req.body);
   console.log("------------------------");
+  var uname = req.body.uname;
+  res.render('check', {email: uname, linkUserId: null });
 });
 
 router.get('/otherscheck/:id', (req, res, next) => {
   console.log('===============others check');
-  res.render('check', {email: req.params.id});
+  res.render('check', {linkUserId: req.params.id});
 }) 
 //test 링크는 일단 localhost:3000/otherscheck/:id
 // _id 값으로 링크 만들면 될듯. 
