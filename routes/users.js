@@ -30,7 +30,7 @@ module.exports = function (app, User) {
 
   router.post('/indexrslt', (req, res, next) => {
     console.log("====indexrslt");
-    let email = req.body.email;
+    let email = req.body.uname;
 
     //find 해줄까 findOne 해줄까 ㅇㅂㅇ
     User.findOne({ email: email }, (err, user) => {
