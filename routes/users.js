@@ -28,12 +28,6 @@ module.exports = function (app, User) {
     res.send('respond with a resource');
   });
 
-  //결과 띄우는 부분.
-  /* 덱스에서 결과창 보는 기능인데, 뭘 해줘야하냐면 find해서
-저장된 값은 가져오고 others에 있는걸 cnt 해야하고, 아니면 arr을 저장하는걸로 수정해서 바로 그걸 가져오는 식으로 하면 괜찮겠다.
-하여튼 그래서 그거 더해가지고 cnt 뿌려줘야함 data로 
-top3도 해야하고 
-*/
   router.post('/indexrslt', (req, res, next) => {
     console.log("====indexrslt");
     let email = req.body.email;
@@ -47,37 +41,64 @@ top3도 해야하고
       if (!user) return res.status(404); // 못찾았을때, 
       if (user.length == 0) return res.status(404);
 
-      let data = []; //keyWord(String)랑, cnt(int)가 들어가야함.
+      let data = new Object(); //keyWord(String)랑, cnt(int)가 들어가야함.
+      data.keyWords = [];
+      data.matchMoOx = [];
+      data.matchMxOo = [];
+
+      let chNum = []; // 선택받은 숫자
 
       for (let i = 0; i < user.totCnt.length; i++) {
         if (user.totCnt[i] > 0) {
-          console.log(i + " " + user.totCnt[i] + " " + sample1[i]);
-          data.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
+          // console.log(i + " " + user.totCnt[i] + " " + sample1[i]);
+          chNum.push(i);
+          data.keyWords.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
         }
       }
 
-      data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
+      // console.log("chNum=====");
+      // console.log(chNum);
+
+
+      data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
+
+      if (!user.otherCnt) {
+        data.matchMoOx = null;
+        data.matchMxOo = null;
+      } else {
+        let tot = user.totCnt;
+        let uch = user.userCh;
+
+        let matchCnt = 0;
+        for (let i = 0; i < user.userCh.length; i++) {
+          let tmp = tot[uch[i] - 1] - 1;
+          if (tmp == 0) {
+            data.matchMoOx.push({ keyWord: sample1[uch[i] - 1] });
+          } else if (tmp > 0) {
+            matchCnt++; // 나도하고 남도하고
+          }  
+            // } else if(tmp == 0) {
+            //   data.matchMxOo.push({ keyWord: sample1[uch[i]-1], cnt: tmp});
+        
+          chNum.splice(chNum.indexOf(user.userCh[i]), 1); //userCh에 있는 숫자를 빼는 것,
+        }
+
+        data.matchPoint = ((matchCnt/12) * 100).toFixed(2); // 12 == userCh.length
+        // console.log("MxOo");
+        // console.log(chNum);
+
+        //여기가 MxOo 내가 안하고 남이 한거 그래서 cnt 할때 -1 해줄 필요 없음.
+        for (let i = 0; i < chNum.length; i++) {
+          data.matchMxOo.push({ keyWord: sample1[chNum[i]], cnt: tot[chNum[i]] });
+        }
+      }
+
       console.log(data);
 
       res.render('result', { Email: user.email, data: data });
 
     })
   });
-
-  /* 자신이 한거에서 result가 오면 chk 결과를 일단. insert 해야겠지.
-insert 할때부터 cnt를 올릴려면 그 keyWord 100개를 어쨌든 같이 up 해줘야하는거잖아
-너무 비효율적인거 같은데,
-체크 된 것들 cnt를 하나씩 올려야해 1로, 
-그 다음에 top3를 띄워줘야하고.
-cnt가 0보다 큰 애들을 표에다가 찍어줘야하고
-
-update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
-
-
-그러면 일단 keyWord는 빼고 시작해볼까나.
-*/
-
-  //여기는 일단, 처음으로 유저가 했을때를 생각하면서 하는거야.
 
   router.post('/result', (req, res, next) => {
 
@@ -93,8 +114,6 @@ update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
     for (let i in rslt) {
       arr[rslt[i] - 1]++;
     }
-    // console.log("arrrrrrrrrrrrrrrrrrrrrrrrr");
-    // console.log(arr);
 
     user.email = req.body.email;
     user.userCh = rslt;
@@ -106,28 +125,27 @@ update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
         return;
       }
 
-      let data = [];
+      let data = new Object();
+      data.keyWords = [];
+      data.matchMoOx = null;
+      data.matchMxOo = null;
+      data.matchPoint = null;
 
-      //결과를 출력해야하는데, top3는 totCnt를 기준으로 할거니까 user.totCnt를 정렬해서 3개까지만 출력하면 되. 이걸 node에서 어떻게 하게
       for (let i in arr) {
         if (arr[i] > 0) {
-          data.push({ keyWord: sample1[i], cnt: arr[i] });
+          data.keyWords.push({ keyWord: sample1[i], cnt: arr[i] });
         }
       }
-      data.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
-      console.log(data);
+      data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
 
+      console.log(data);
       // console.log(user.email);
       // console.log(req.body.email);
-      //matchData1 ==> 내가 했지만 남이 안한거
-      //matchData2 ==> 남이 했지만 내가 안한거
 
-      res.render('result', { Email : user.email, data : data, matchData1 : null, matchData2 : null });
+      res.render('result', { Email: user.email, data: data });
 
     });
   });
-
-
 
   //필요한게 대상의 email(검색용)/타인email(push용)/
 
@@ -140,7 +158,6 @@ update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
     let chk = req.body.chk;
     let email_user = req.body.email;
     let email_oth = req.body.email_oth;
-
 
     User.findOne({ email: email_user }, (err, user) => {
       if (err) return res.status(500).json({ error: 'database failure' });
@@ -158,7 +175,7 @@ update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
       let temp = user.totCnt;
       console.log(temp);
 
-      User.update({ email: email_user }, { $set: { totCnt : temp } }, (err, output) => {
+      User.update({ email: email_user }, { $set: { totCnt: temp } }, (err, output) => {
         if (err) res.status(500).json({ error: 'db fail' });
         console.log(output);
         if (!output.n) return res.status(404).json({ error: 'user not found' });
@@ -174,51 +191,3 @@ update할거면 배열을 갖고 와가지고 그걸 ++해서 해주면되고,
 
   return router;
 }
-
-
-
-// //create
-  // router.get('/result/:id', function (req, res, next) {
-
-  //   console.log(req.params.id);
-  //   console.log("===========================");
-  //   var user = new User();
-  //   user.email = req.params.id;
-
-  //   user.save(function (err) {
-  //     if (err) {
-  //       console.error(err);
-  //       return;
-  //     }
-  //   });
-
-  //   res.json({ result: 1 });
-  //   //res.render('result', { Email: req.body.Email, top3: top3 });
-  // });
-
-
-  // router.get('/result/find/:id', (req, res, next) => {
-  //   User.find({ email: req.params.id }, (err, users) => {
-  //     if (err) {
-  //       console.error(err);
-  //       return;
-  //     }
-
-  //     res.json(users);
-  //   })
-  // })
-
-
-
-  // router.post('/result', function (req, res, next) {
-
-  //   let top3 = sample1;
-  //   top3.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 });
-
-  //   console.log(req.body.Email + "???");
-  //   console.log(req.body);
-  //   console.log(top3);
-  //   console.log("==========================================");
-
-  //   res.render('result', { Email: req.body.Email, top3: top3 });
-  // });
