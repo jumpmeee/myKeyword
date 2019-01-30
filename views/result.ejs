@@ -69,10 +69,10 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% let sum = 0; for(let i in data.keyWords) {%>
+											<% let sum = 0; let j = 1; for(let i in data.keyWords) {  %>
 											<tr>
 												<td>
-													<%= i+1 %>
+													<%= j++ %>
 												</td>
 												<td>
 													<%= data.keyWords[i].keyWord %>
@@ -129,10 +129,10 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% for(let i in data.matchMoOx) {%>
+											<% j = 1; for(let i in data.matchMoOx) {  %>
 											<tr>
 												<td>
-													<%= i+1 %>
+													<%= j++ %>
 												</td>
 												<td>
 													<%= data.matchMoOx[i].keyWord %>
@@ -163,9 +163,9 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% sum = 0; for(let i in data.matchMxOo) {%>
+											<% sum = 0; j = 1; for(let i in data.matchMxOo) {  %>
 											<tr>
-												<td><%= (i+1) %></td>
+												<td><%= j++ %></td>
 												<td>
 													<%= data.matchMxOo[i].keyWord %>
 												</td>
