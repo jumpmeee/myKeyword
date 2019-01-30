@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="/assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+
 </head>
 
 <body class="is-preload">
@@ -23,7 +24,8 @@
 
 		<!-- Header -->
 		<header id="header">
-			<h1><%= Email %> 님의 결과분석</h1>
+			<h1>
+				<%= Email %> 님의 결과분석</h1>
 			<p>나의 <b>Top 3</b> 키워드와 매칭률을 보여줍니다.</p>
 		</header>
 
@@ -37,9 +39,11 @@
 					<header class="major">
 						<h2>Top 3</h2>
 					</header>
-					<h1><%= data[0].keyWord %>, 
-						<%= data[1].keyWord %>, 
-						<%= data[2].keyWord %></h1>
+					<h1>
+						<%= data.keyWords[0].keyWord %>,
+						<%= data.keyWords[1].keyWord %>,
+						<%= data.keyWords[2].keyWord %>
+					</h1>
 
 					<div>
 						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
@@ -59,45 +63,49 @@
 									<table>
 										<thead>
 											<tr>
+												<th>No</th>
 												<th>Keyword</th>
-												<th>Description</th>
 												<th>Clicks</th>
 											</tr>
 										</thead>
 										<tbody>
-											<% let sum = 0; for(let i in data) {%>
+											<% let sum = 0; let j = 1; for(let i in data.keyWords) {  %>
 											<tr>
-												<td><%= data[i].keyWord %></td>
-												<td>&nbsp;</td>
-												<td><%= data[i].cnt %></td>
+												<td>
+													<%= j++ %>
+												</td>
+												<td>
+													<%= data.keyWords[i].keyWord %>
+												</td>
+												<td>
+													<%= data.keyWords[i].cnt %>
+												</td>
 											</tr>
-											<% sum += data[i].cnt}; %>
+											<% sum += data.keyWords[i].cnt}; %>
 										</tbody>
 										<tfoot>
 											<tr>
 												<td colspan="2"></td>
-												<td><%= sum %></td> <!--이부분은 무슨 부분인지 다시 확인할 것, 일단은 cnt의 합으로 나타내긴 했는데, %로 나타내는건가? -->
+												<td>
+													<%= sum %>
+												</td>
 											</tr>
 										</tfoot>
 									</table>
-
 								</div>
-
-
 							</section>
 						</div>
 					</div>
-
-
 				</section>
-				<!-- Table -->
 
 				<hr />
-				<section id="Matching point" class="main special">
+
+				<section id="matchingPoint" class="main special">
 					<header class="major">
 						<h2>Matching point</h2>
 					</header>
-					<h1><b>73%</b></h1>
+					<h1><b>
+							<%= data.matchPoint %> % </b></h1>
 
 					<div>
 						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
@@ -110,117 +118,88 @@
 								<br>
 								<h2>상세정보</h2>
 								<h3>나는 선택했지만 타인은 선택하지 않은 키워드</h3>
+								<!--MoOx-->
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
 											<tr>
+												<th>No</th>
 												<th>Keyword</th>
-												<th>Description</th>
-												<th>Clicks</th>
-												<th>Clicks</th>
-												<th>Clicks</th>
 											</tr>
 										</thead>
 										<tbody>
+											<% j = 1; for(let i in data.matchMoOx) {  %>
 											<tr>
-												<td>Item One</td>
-												<td>29.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-												<td>29.99</td>						
+												<td>
+													<%= j++ %>
+												</td>
+												<td>
+													<%= data.matchMoOx[i].keyWord %>
+												</td>
 											</tr>
-											<tr>
-												<td>Item Two</td>
-												<td>29.99</td>
-												<td>19.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Three</td>
-												<td>29.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Four</td>
-												<td>29.99</td>
-												<td>19.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Five</td>
-												<td>29.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-												<td>29.99</td>
-											</tr>
+											<% } %>
 										</tbody>
-										<tfoot>
-											<tr>
-												<td colspan="2"></td>
-												<td>100.00</td>
-											</tr>
-										</tfoot>
 									</table>
 								</div>
 
 								<h3>나는 선택하지 않았지만 타인이 선택한 키워드</h3>
+								<!--MxOo-->
 								<div class="table-wrapper">
 									<table>
 										<thead>
 											<tr>
+												<th>No</th>
 												<th>Keyword</th>
-												<th>Description</th>
-												<th>Clicsk</th>
+												<th>Clicks</th>
 											</tr>
 										</thead>
 										<tbody>
+											<% sum = 0; j = 1; for(let i in data.matchMxOo) {  %>
 											<tr>
-												<td>Item One</td>
-												<td>Ante turpis integer aliquet porttitor.</td>
-												<td>29.99</td>
+												<td>
+													<%= j++ %>
+												</td>
+												<td>
+													<%= data.matchMxOo[i].keyWord %>
+												</td>
+												<td>
+													<%= data.matchMxOo[i].cnt %>
+												</td>
 											</tr>
-											<tr>
-												<td>Item Two</td>
-												<td>Vis ac commodo adipiscing arcu aliquet.</td>
-												<td>19.99</td>
-											</tr>
-											<tr>
-												<td>Item Three</td>
-												<td> Morbi faucibus arcu accumsan lorem.</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Four</td>
-												<td>Vitae integer tempus condimentum.</td>
-												<td>19.99</td>
-											</tr>
-											<tr>
-												<td>Item Five</td>
-												<td>Ante turpis integer aliquet porttitor.</td>
-												<td>29.99</td>
-											</tr>
+											<% sum += data.matchMxOo[i].cnt}; %>
 										</tbody>
-										<tfoot>
+										<!-- <tfoot>
 											<tr>
 												<td colspan="2"></td>
-												<td>100.00</td>
+												<td>
+													<%= sum %>
+												</td>
 											</tr>
-										</tfoot>
+										</tfoot> -->
 									</table>
 								</div>
 							</section>
 						</div>
 					</div>
 				</section>
-
+				<h1 id="matchnothing"></h1>
+				<% 
+					if(!data.matchMoOx) {
+						console.log("matchMoOx " + data.matchMoOx);
+				%>
+				<script>
+					// alert(document.getElementById("matchingPoint"))
+					document.getElementById("matchingPoint").style.display = "none";
+					document.getElementById("matchnothing").innerHTML = "체크한 친구가 없습니다!";
+				</script>
+				<%
+					}
+				%>
 
 				<hr />
 
 				<footer class="major">
+					<h4><b>링크공유하기 : <%= data.link %></b></h4> <!-- 클립보드로 복사하기 만들기 -->
 					<ul class="actions special">
 						<li><a href="/" class="button">홈으로</a></li>
 					</ul>
@@ -228,13 +207,9 @@
 			</section>
 
 		</div>
-	<!-- Footer -->
-	<footer id="footer">
-			<p class="copyright">&copy; Untitled. Design:
-				<a href="https://html5up.net">HTML5 UP</a>.</p>
-		</footer>
-		
 
+		<!-- Footer -->
+		<% include ./footer %>
 	</div>
 
 	<!-- Scripts -->
