@@ -11,6 +11,12 @@
 	<title>나의 키워드 - 결과분석</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"> -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
 	<link rel="stylesheet" href="/assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
@@ -46,19 +52,19 @@
 					</h1>
 
 					<div>
-						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+						<input value="더보기" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
 													this.parentNode.getElementsByTagName('div')[0].style.display = '';
-													this.value = '-';}
+													this.value = '숨기기';}
 													else{
 														this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; 
-														this.value = '+';
+														this.value = '더보기';
 														}"
 						 type="button" />
 						<div style="display: none;">
 							<section>
 								<br>
-								<h2>상세정보</h2>
-								<h3>체크된 키워드</h3>
+								<h2>체크된 키워드 리스트</h2>
+								<!-- <h3>체크된 키워드</h3> -->
 								<div class="table-wrapper">
 									<table>
 										<thead>
@@ -108,10 +114,10 @@
 							<%= data.matchPoint %> % </b></h1>
 
 					<div>
-						<input value="+" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+						<input value="더보기" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
 													this.parentNode.getElementsByTagName('div')[0].style.display = '';
-													this.value = '-';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; 
-													this.value = '+';}"
+													this.value = '숨기기';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; 
+													this.value = '더보기';}"
 						 type="button" />
 						<div style="display: none;">
 							<section>
@@ -141,7 +147,7 @@
 										</tbody>
 									</table>
 								</div>
-
+								<br>
 								<h3>나는 선택하지 않았지만 타인이 선택한 키워드</h3>
 								<!--MxOo-->
 								<div class="table-wrapper">
@@ -195,31 +201,92 @@
 				<%
 					}
 				%>
-
-				<hr />
+				<!-- 
+				<hr /> -->
 
 				<footer class="major">
-					<h4><b>링크공유하기 : <%= data.link %></b></h4> <!-- 클립보드로 복사하기 만들기 -->
-					<ul class="actions special">
-						<li><a href="/" class="button">홈으로</a></li>
-					</ul>
-				</footer>
-			</section>
+					<h4><b>친구에게 링크공유하기</b></h4> <!-- 클립보드로 복사하기 만들기 -->
+					<input size="100" id="myInput" value=<%=data.link %>>
+					<button onclick="copy_to_clipboard()">링크복사</button>
 
-		</div>
+					<script>
+						function copy_to_clipboard() {
+							var copyText = document.getElementById("myInput");
+							copyText.select();
+							document.execCommand("Copy");
+							alert('Copied!');
+						}
+					</script>
+					<br>
+					<br>
+					<!-- </script> -->
+					<!-- <a id="kakao-link-btn" href="javascript:sendLink()">
+						<img src="http://dn.api1.kage.kakao.co.kr/14/dn/btqa9B90G1b/GESkkYjKCwJdYOkLvIBKZ0/o.jpg" />
+					  </a>
+				  
+					  <script>
+					   function sendLink() {
+						Kakao.Link.sendTalkLink({
+						  label: '안녕하세요, 꽃다운 ' + Math.floor(Math.random()*(70)+ 15) + '살 개발자입니다.',
+				  
+						  webLink: {
+				  
+							  text:'앱이름',
+				  
+							  url:'www.naver.com'
+				  
+						  }
+						});
+					  }
+					  </script> -->
+					<!-- 					  
+					  <a id="kakao-link-btn" href="javascript:;">
+					  <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png">
+					  </a>
+					  <script type="text/javascript">
+						//<!--[CDATA[
+						  // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+						  Kakao.init('051ec5bab166592056a1a884c8601dc4');
+						  // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+						  Kakao.Link.createTalkLinkButton({
+							container: '#kakao-link-btn',
+							label:  '나의 키워드 - 무료 성향 분석\n지금 바로 확인해보세요.',
+							image: {
+									src: 'https://t1.daumcdn.net/cfile/tistory/27659D375697546430',
+							   width: '320',
+							   height: '416'
+							},
+							webButton:{
+							   text: '검사하러 가기',
+							   url: 'http://127.0.0.1:3000/'
+							}
+						 });
+						//
+					  </script> -->
+</body>
 
-		<!-- Footer -->
-		<% include ./footer %>
-	</div>
+</html>
 
-	<!-- Scripts -->
-	<script src="/assets/js/jquery.min.js"></script>
-	<script src="/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/assets/js/jquery.scrolly.min.js"></script>
-	<script src="/assets/js/browser.min.js"></script>
-	<script src="/assets/js/breakpoints.min.js"></script>
-	<script src="/assets/js/util.js"></script>
-	<script src="/assets/js/main.js"></script>
+<ul class="actions special">
+	<li><a href="/" class="button">홈으로</a></li>
+</ul>
+</footer>
+</section>
+
+</div>
+
+<!-- Footer -->
+<% include ./footer %>
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
 
 </body>
 
