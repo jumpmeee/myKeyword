@@ -75,14 +75,14 @@ module.exports = function (app, User) {
             data.matchMoOx.push({ keyWord: sample1[uch[i] - 1] });
           } else if (tmp > 0) {
             matchCnt++; // 나도하고 남도하고
-          }  
-            // } else if(tmp == 0) {
-            //   data.matchMxOo.push({ keyWord: sample1[uch[i]-1], cnt: tmp});
-        
+          }
+          // } else if(tmp == 0) {
+          //   data.matchMxOo.push({ keyWord: sample1[uch[i]-1], cnt: tmp});
+
           chNum.splice(chNum.indexOf(user.userCh[i]), 1); //userCh에 있는 숫자를 빼는 것,
         }
 
-        data.matchPoint = ((matchCnt/uch.length) * 100).toFixed(2); // 12 == userCh.length
+        data.matchPoint = ((matchCnt / uch.length) * 100).toFixed(2); // 12 == userCh.length
         // console.log("MxOo");
         // console.log(chNum);
 
@@ -100,7 +100,7 @@ module.exports = function (app, User) {
   });
 
   router.get('/result', (req, res, next) => {
-    res.render('index1', {title: "유효한 접근이 아닙니다."})
+    res.render('index1', { title: "유효한 접근이 아닙니다." })
   });
 
   router.post('/result', (req, res, next) => {
@@ -168,28 +168,78 @@ module.exports = function (app, User) {
       if (err) return res.status(500).json({ error: 'database failure' });
       if (!user) return res.status(404).json({ error: 'user not found' });
 
-      if (email_oth && chk) {
-        user.others.push({ name: email_oth, otherCh: chk });
-        user.otherCnt = user.otherCnt + 1;
+      console.log("i'm      " + user.email);
+      console.log(user.others);
 
-        for (let i in chk) {
-          user.totCnt[chk[i] - 1] = user.totCnt[chk[i] - 1] + 1;
+      let flag = true;
+      let oldChk;
+      for (let idx in user.others) {
+        if (user.others[idx].name == email_oth) {
+          flag = false;
+          oldChk = user.others[idx].otherCh;
         }
+        if (!flag) break;
       }
 
-      let temp = user.totCnt;
-      // console.log(temp);
+      if (flag) {
+        console.log("inset others-----------------------------");
+        if (email_oth && chk) {
+          user.others.push({ name: email_oth, otherCh: chk });
+          user.otherCnt = user.otherCnt + 1;
 
-      User.update({ _id: linkUserId }, { $set: { totCnt: temp } }, (err, output) => {
-        if (err) res.status(500).json({ error: 'db fail' });
-        console.log(output);
-        if (!output.n) return res.status(404).json({ error: 'user not found' });
-      })
+          for (let i in chk) {
+            user.totCnt[chk[i] - 1] = user.totCnt[chk[i] - 1] + 1;
+          }
+        }
 
-      user.save(function (err) {
-        if (err) res.status(500).json({ error: 'failed to update' });
-      })
+        // let temp = user.totCnt;
 
+        User.updateOne({ _id: linkUserId }, { $set: { "totCnt": user.totCnt } }, (err, output) => {
+          if (err) res.status(500).json({ error: 'db fail' });
+          console.log(output);
+          if (!output.n) return res.status(404).json({ error: 'user not found' });
+        })
+
+        user.save(function (err) {
+          if (err) res.status(500).json({ error: 'failed to update' });
+        })
+  
+      } else {
+        console.log("update others-----------------------------")
+        console.log("oldchkkkkk");
+        console.log(oldChk);
+        console.log(oldChk.length);
+        console.log("chkkkkkkkkkkkkkkkkk");
+        console.log(chk);
+        // console.log("temppppppppppppppppp")
+        // console.log(user.totCnt);
+
+        for (let i = 0; i < oldChk.length; i++) {
+          // console.log(i + " " + (oldChk[i]-1) + " " + user.totCnt[oldChk[i]-1]);
+
+          user.totCnt[oldChk[i] - 1] = user.totCnt[oldChk[i] - 1] - 1;
+        }
+
+        // console.log(user.totCnt);
+
+        for(let i in chk) {
+          // console.log(i + " " + chk[i] + " " + user.totCnt[chk[i]-1]);
+          user.totCnt[chk[i] - 1] = user.totCnt[chk[i] - 1] + 1;
+        }
+
+        // console.log(user.totCnt);
+
+        //  let temp = user.totCnt;
+         
+        User.updateOne({ "_id": linkUserId, "others.name" : email_oth }, { $set: { "totCnt" : user.totCnt ,  "others.$.otherCh" : chk}}, (err, output) => {
+          if (err) res.status(500).json({ error: 'db fail' });
+          console.log(output);
+
+          if (!output.n) return res.status(404).json({ error: 'user not found' });
+        })
+      }
+
+      
     })
     res.redirect('/');
   });
