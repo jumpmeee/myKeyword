@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/check', function(req, res, next) {
-<<<<<<< HEAD
   console.log(req.body);
   console.log("------------------------");
   session = req.body.uname;
@@ -18,8 +17,6 @@ router.post('/check', function(req, res, next) {
 router.post('/result', function(req, res, next) {
   
   res.render('result', {email: session});
-=======
->>>>>>> 4fe783932be5538bd0865caa14531fff687756d6
   console.log(req.body);
   console.log("------------------------");
   var uname = req.body.uname;

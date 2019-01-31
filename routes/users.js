@@ -30,11 +30,7 @@ module.exports = function (app, User) {
 
   router.post('/indexrslt', (req, res, next) => {
     console.log("====indexrslt");
-<<<<<<< HEAD
-    let email = req.body.email;
-=======
     let email = req.body.uname;
->>>>>>> 4fe783932be5538bd0865caa14531fff687756d6
 
     //find 해줄까 findOne 해줄까 ㅇㅂㅇ
     User.findOne({ email: email }, (err, user) => {
@@ -101,6 +97,10 @@ module.exports = function (app, User) {
       res.render('result', { Email: user.email, data: data });
 
     })
+  });
+
+  router.get('/result', (req, res, next) => {
+    res.render('index1', {title: "유효한 접근이 아닙니다."})
   });
 
   router.post('/result', (req, res, next) => {
