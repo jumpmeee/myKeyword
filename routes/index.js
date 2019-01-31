@@ -14,15 +14,6 @@ router.post('/check', function(req, res, next) {
   res.render('check', {email: session, linkUserId: null });
 });
 
-router.post('/result', function(req, res, next) {
-  
-  res.render('result', {email: session});
-  console.log(req.body);
-  console.log("------------------------");
-  var uname = req.body.uname;
-  res.render('check', {email: uname, linkUserId: null });
-});
-
 router.get('/otherscheck/:id', (req, res, next) => {
   console.log('===============others check');
   res.render('check', {linkUserId: req.params.id});
