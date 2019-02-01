@@ -46,6 +46,7 @@ module.exports = function (app, User) {
       data.matchMoOx = [];
       data.matchMxOo = [];
       data.link = "localhost:3000/otherscheck/" + user._id;
+      data.KeyMyself=[];
 
       let chNum = []; // 선택받은 숫자
 
@@ -70,6 +71,7 @@ module.exports = function (app, User) {
 
         let matchCnt = 0;
         for (let i = 0; i < user.userCh.length; i++) {
+          data.KeyMyself.push({keyWord: sample1[user.userCh[i]-1]});
           let tmp = tot[uch[i] - 1] - 1;
           if (tmp == 0) {
             data.matchMoOx.push({ keyWord: sample1[uch[i] - 1] });
@@ -81,7 +83,7 @@ module.exports = function (app, User) {
 
           chNum.splice(chNum.indexOf(user.userCh[i]), 1); //userCh에 있는 숫자를 빼는 것,
         }
-
+        // console.log(data.KeyMyself);
         data.matchPoint = ((matchCnt / uch.length) * 100).toFixed(2); // 12 == userCh.length
         // console.log("MxOo");
         // console.log(chNum);
@@ -92,7 +94,7 @@ module.exports = function (app, User) {
         }
       }
 
-      // console.log(data);
+      console.log(data);
 
       res.render('result', { Email: user.email, data: data });
 

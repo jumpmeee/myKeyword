@@ -80,8 +80,23 @@
 												<td>
 													<%= j++ %>
 												</td>
-												<td>
-													<%= data.keyWords[i].keyWord %>
+														<% var flag = false; for( let z in data.KeyMyself){
+															console.log(data.keyWords[i].keyWord+" = "+data.KeyMyself[z].keyWord);
+															if(flag!=true&&data.keyWords[i].keyWord.trim()==data.KeyMyself[z].keyWord.trim()){
+																flag=true;
+																console.log(flag);
+																%>
+															<% }} %>
+															<% if(flag){
+																%><td style="font-weight:bold"><%= data.keyWords[i].keyWord %></td>
+																															<% }else if(!flag){%>
+																<% console.log("1"); %>
+																<td><%= data.keyWords[i].keyWord %></td>
+															<% } %>
+																
+														
+														
+
 												</td>
 												<td>
 													<%= data.keyWords[i].cnt %>
