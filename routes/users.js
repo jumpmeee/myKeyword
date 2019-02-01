@@ -28,6 +28,20 @@ module.exports = function (app, User) {
     res.redirect('/');
   });
 
+  router.post('/regist', (req, res, next) => {
+    let email = req.body.email;
+
+    User.findOne({email: email }, (err, user) => {
+      if(err) {
+        console.error(err);
+        return;
+      }
+
+      if (!user) return res.json({rslt: 0});
+      return res.json({rslt: 1});
+    })
+  });
+
   router.post('/indexrslt', (req, res, next) => {
     console.log("====indexrslt");
     let email = req.body.uname;
