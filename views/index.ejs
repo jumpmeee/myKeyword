@@ -11,6 +11,43 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/assets/css/main.css" />
+	<!-- Scripts -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/assets/js/browser.min.js"></script>
+	<script src="/assets/js/breakpoints.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/main.js"></script>
+	<script>
+		$(function() {
+			$("#regist").on("click", function(e) {
+				e.preventDefault();
+
+				let email = $("#uname").val();
+				console.log("regist email==============" + email);
+
+				$.ajax({
+					url: "/users/regist",
+					data: { email : email },
+					type: "POST",
+					dataType: "JSON"
+				}).done((res) => {
+					console.log(typeof(res.rslt) +" " + res.rslt);		
+					if(!res.rslt) {
+						$("#insert_email").submit();			
+					} else {
+						alert('이메일이 중복되었습니다.');
+						$("#uname").val("");
+					}
+				}).fail((xhr, status, err) => {
+					alert('error!');
+				});
+			});
+		});
+
+
+	</script>
 	<noscript>
 		<link rel="stylesheet" href="/assets/css/noscript.css" />
 	</noscript>
@@ -37,9 +74,9 @@
 		<!-- Header -->
 		<header id="header" class="alt">
 			<span class="q">
-				
+
 				<!-- <a href="/"> -->
-					<img src="/images/q.svg" alt="" />
+				<img src="/images/q.svg" alt="" />
 				<!-- </a> -->
 			</span>
 			<h1>나의 키워드</h1>
@@ -74,7 +111,7 @@
 						<!-- <a href="#" class="button" data-toggle="modal" data-target="#login-modal">Login</a> -->
 						<div id="id01" class="modal">
 
-							<form class="modal-content animate" action="/check" method="POST">
+							<form id="insert_email" class="modal-content animate" action="/check" method="POST">
 								<div class="imgcontainer">
 									<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
 									<!-- <img src="images/q.svg" alt="Avatar" class="avatar">  -->
@@ -82,10 +119,15 @@
 
 								<div class="container">
 									<label><b>이메일을 입력해주세요.</b></label>
-									<input type="email" placeholder="example@example.com" name="uname" required>
+									<input type="text" placeholder="example@example.com" name="uname" id="uname" required>
 									<footer class="action">
 										<br>
+<<<<<<< HEAD
 										<button type="submit">확인</button>
+=======
+										<button id="regist">확인</button>
+										<!-- <button type="submit">확인</button> -->
+>>>>>>> 0b04ca1987da1f0b104687fc46b13e9be0dcf04e
 									</footer>
 
 								</div>
@@ -127,15 +169,7 @@
 		<!-- Footer -->
 		<% include ./footer %>
 
-		<!-- Scripts -->
-		<script src="/assets/js/jquery.min.js"></script>
-		<script src="/assets/js/jquery.scrollex.min.js"></script>
-		<script src="/assets/js/jquery.scrolly.min.js"></script>
-		<script src="/assets/js/browser.min.js"></script>
-		<script src="/assets/js/breakpoints.min.js"></script>
-		<script src="/assets/js/util.js"></script>
-		<script src="/assets/js/main.js"></script>
-
+		
 </body>
 
 </html>
