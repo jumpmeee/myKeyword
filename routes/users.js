@@ -60,6 +60,7 @@ module.exports = function (app, User) {
       data.matchMoOx = [];
       data.matchMxOo = [];
       data.link = "localhost:3000/otherscheck/" + user._id;
+      data.KeyMyself = [];
 
       let chNum = []; // 선택받은 숫자
 
@@ -70,7 +71,7 @@ module.exports = function (app, User) {
           data.keyWords.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
         }
       }
-      
+
       data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
       // console.log("chNum=====");
       // console.log(chNum);
@@ -87,6 +88,7 @@ module.exports = function (app, User) {
         console.log("userCh");
         console.log(uch);
         for (let i = 0; i < uch.length; i++) {
+          data.KeyMyself.push({ keyWord: sample1[uch[i] - 1] });
           let tmp = tot[uch[i] - 1] - 1;
           if (tmp == 0) {
             data.matchMoOx.push({ keyWord: sample1[uch[i] - 1] });
@@ -95,8 +97,8 @@ module.exports = function (app, User) {
           }
           // } else if(tmp == 0) {
           //   data.matchMxOo.push({ keyWord: sample1[uch[i]-1], cnt: tmp});
-          
-          chNum.splice(chNum.indexOf(usch[i]-1), 1); //userCh에 있는 숫자를 빼는 것,
+
+          chNum.splice(chNum.indexOf(usch[i] - 1), 1); //userCh에 있는 숫자를 빼는 것,
         }
 
         data.matchPoint = ((matchCnt / (uch.length * user.otherCnt)) * 100).toFixed(2); // 12 == userCh.length
