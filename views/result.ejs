@@ -88,10 +88,10 @@
 																%>
 															<% }} %>
 															<% if(flag){
-																%><td style="font-weight:bold"><%= data.keyWords[i].keyWord %></td>
+																%><td style="font-weight:bold" title="내가 체크한 키워드"><%= data.keyWords[i].keyWord %></td>
 																															<% }else if(!flag){%>
 																<% console.log("1"); %>
-																<td><%= data.keyWords[i].keyWord %></td>
+																<td title="친구가 체크한 키워드"><%= data.keyWords[i].keyWord %></td>
 															<% } %>
 																
 														
