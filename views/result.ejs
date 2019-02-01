@@ -202,23 +202,21 @@
 				<%
 					}
 				%>
-				<!-- 
-				<hr /> -->
+				<hr />
 
 				<footer class="major">
-					<h4><b>친구에게 링크공유하기</b></h4> <!-- 클립보드로 복사하기 만들기 -->
-					<input size="100" id="myInput" value=<%=data.link %>>
-					<button onclick="copy_to_clipboard()">링크복사</button>
-
-					<script>
-						function copy_to_clipboard() {
-							var copyText = document.getElementById("myInput");
-							copyText.select();
-							document.execCommand("Copy");
-							alert('Copied!');
-						}
-					</script>
-					<br>
+						<h4><b>친구에게 링크공유하기</b></h4> <!-- 클립보드로 복사하기 만들기 -->
+						<input type="text" style="width:85%" id="myInput" value=<%=data.link %> readOnly>
+						<button onclick="copy_to_clipboard()">링크복사</button>
+	
+						<script>
+							function copy_to_clipboard() {
+								var copyText = document.getElementById("myInput");
+								copyText.select();
+								document.execCommand("Copy");
+								alert('링크가 복사되었습니다!');
+							}
+						</script>
 					<br>
 					<!-- </script> -->
 					<!-- <a id="kakao-link-btn" href="javascript:sendLink()">

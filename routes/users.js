@@ -28,17 +28,17 @@ module.exports = function (app, User) {
     res.redirect('/');
   });
 
-  router.post('/regist', (req, res, next) => {
+  router.post('/emailchk', (req, res, next) => {
     let email = req.body.email;
 
-    User.findOne({email: email }, (err, user) => {
-      if(err) {
+    User.findOne({ email: email }, (err, user) => {
+      if (err) {
         console.error(err);
         return;
       }
 
-      if (!user) return res.json({rslt: 0});
-      return res.json({rslt: 1});
+      if (!user) return res.json({ rslt: 0 });
+      return res.json({ rslt: 1 });
     })
   });
 
@@ -70,6 +70,7 @@ module.exports = function (app, User) {
           data.keyWords.push({ keyWord: sample1[i], cnt: user.totCnt[i] });
         }
       }
+      
       data.keyWords.sort(function (a, b) { return a.cnt < b.cnt ? 1 : a.cnt > b.cnt ? -1 : 0 }); //top 3 를 위한 정렬
       // console.log("chNum=====");
       // console.log(chNum);
@@ -83,7 +84,9 @@ module.exports = function (app, User) {
         let uch = user.userCh;
 
         let matchCnt = 0;
-        for (let i = 0; i < user.userCh.length; i++) {
+        console.log("userCh");
+        console.log(uch);
+        for (let i = 0; i < uch.length; i++) {
           let tmp = tot[uch[i] - 1] - 1;
           if (tmp == 0) {
             data.matchMoOx.push({ keyWord: sample1[uch[i] - 1] });
@@ -92,12 +95,12 @@ module.exports = function (app, User) {
           }
           // } else if(tmp == 0) {
           //   data.matchMxOo.push({ keyWord: sample1[uch[i]-1], cnt: tmp});
-
-          chNum.splice(chNum.indexOf(user.userCh[i]), 1); //userCh에 있는 숫자를 빼는 것,
+          
+          chNum.splice(chNum.indexOf(usch[i]-1), 1); //userCh에 있는 숫자를 빼는 것,
         }
 
-        data.matchPoint = ((matchCnt / uch.length) * 100).toFixed(2); // 12 == userCh.length
-        // console.log("MxOo");
+        data.matchPoint = ((matchCnt / (uch.length * user.otherCnt)) * 100).toFixed(2); // 12 == userCh.length
+        //console.log("MxOo");
         // console.log(chNum);
 
         //여기가 MxOo 내가 안하고 남이 한거 그래서 cnt 할때 -1 해줄 필요 없음.
@@ -105,8 +108,6 @@ module.exports = function (app, User) {
           data.matchMxOo.push({ keyWord: sample1[chNum[i]], cnt: tot[chNum[i]] });
         }
       }
-
-      // console.log(data);
 
       res.render('result', { Email: user.email, data: data });
 
@@ -217,7 +218,7 @@ module.exports = function (app, User) {
         user.save(function (err) {
           if (err) res.status(500).json({ error: 'failed to update' });
         })
-  
+
       } else {
         console.log("update others-----------------------------")
         console.log("oldchkkkkk");
@@ -236,7 +237,7 @@ module.exports = function (app, User) {
 
         // console.log(user.totCnt);
 
-        for(let i in chk) {
+        for (let i in chk) {
           // console.log(i + " " + chk[i] + " " + user.totCnt[chk[i]-1]);
           user.totCnt[chk[i] - 1] = user.totCnt[chk[i] - 1] + 1;
         }
@@ -244,8 +245,8 @@ module.exports = function (app, User) {
         // console.log(user.totCnt);
 
         //  let temp = user.totCnt;
-         
-        User.updateOne({ "_id": linkUserId, "others.name" : email_oth }, { $set: { "totCnt" : user.totCnt ,  "others.$.otherCh" : chk}}, (err, output) => {
+
+        User.updateOne({ "_id": linkUserId, "others.name": email_oth }, { $set: { "totCnt": user.totCnt, "others.$.otherCh": chk } }, (err, output) => {
           if (err) res.status(500).json({ error: 'db fail' });
           console.log(output);
 
@@ -253,7 +254,7 @@ module.exports = function (app, User) {
         })
       }
 
-      
+
     })
     res.redirect('/');
   });

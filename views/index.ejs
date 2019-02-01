@@ -13,12 +13,7 @@
 	<link rel="stylesheet" href="/assets/css/main.css" />
 	<!-- Scripts -->
 	<script src="/assets/js/jquery.min.js"></script>
-	<script src="/assets/js/jquery.scrollex.min.js"></script>
-	<script src="/assets/js/jquery.scrolly.min.js"></script>
-	<script src="/assets/js/browser.min.js"></script>
-	<script src="/assets/js/breakpoints.min.js"></script>
-	<script src="/assets/js/util.js"></script>
-	<script src="/assets/js/main.js"></script>
+	
 	<script>
 		$(function() {
 			$("#regist").on("click", function(e) {
@@ -28,7 +23,7 @@
 				console.log("regist email==============" + email);
 
 				$.ajax({
-					url: "/users/regist",
+					url: "/users/emailchk",
 					data: { email : email },
 					type: "POST",
 					dataType: "JSON"
@@ -39,6 +34,30 @@
 					} else {
 						alert('이메일이 중복되었습니다.');
 						$("#uname").val("");
+					}
+				}).fail((xhr, status, err) => {
+					alert('error!');
+				});
+			});
+
+			$("#search_rslt").on("click", function(e) {
+				e.preventDefault();
+
+				let email = $("#rslt_email").val();
+				console.log("rslt==============" + email);
+
+				$.ajax({
+					url: "/users/emailchk",
+					data: { email : email },
+					type: "POST",
+					dataType: "JSON"
+				}).done((res) => {
+					console.log(typeof(res.rslt) +" " + res.rslt);		
+					if(res.rslt) {
+						$("#index_email").submit();			
+					} else {
+						alert('이메일이 존재하지 않습니다.');
+						$("#rslt_email").val("");
 					}
 				}).fail((xhr, status, err) => {
 					alert('error!');
@@ -146,15 +165,15 @@
 				<header class="major">
 					<h2>결과보기</h2>
 				</header>
-				<form name="index_email" action="/users/indexrslt" method="POST">
+				<form id="index_email" name="index_email" action="/users/indexrslt" method="POST">
 
 					<!-- <input type="text" name="Email" placeholder="example@example.com"> -->
 					<div class="actions ">
 						<!-- <label><b>이메일을 입력해주세요.</b></label>  -->
-						<input type="email" placeholder="example@example.com" name="uname" required>
+						<input type="text" placeholder="example@example.com" name="uname" id="rslt_email" required>
 						<!-- <input type="hidden" name="email" value="testemail@test.com"> -->
 						<footer class="major">
-							<button class="actions special" type="submit">확인</button>
+							<button class="actions special" id="search_rslt">확인</button>
 						</footer>
 						<!-- <input type="checkbox" checked="checked">  Remember me-->
 					</div>
@@ -164,7 +183,12 @@
 
 		<!-- Footer -->
 		<% include ./footer %>
-
+		<script src="/assets/js/jquery.scrollex.min.js"></script>
+		<script src="/assets/js/jquery.scrolly.min.js"></script>
+		<script src="/assets/js/browser.min.js"></script>
+		<script src="/assets/js/breakpoints.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<script src="/assets/js/main.js"></script>
 		
 </body>
 
