@@ -98,7 +98,7 @@ module.exports = function (app, User) {
           // } else if(tmp == 0) {
           //   data.matchMxOo.push({ keyWord: sample1[uch[i]-1], cnt: tmp});
 
-          chNum.splice(chNum.indexOf(usch[i] - 1), 1); //userCh에 있는 숫자를 빼는 것,
+          chNum.splice(chNum.indexOf(uch[i] - 1), 1); //userCh에 있는 숫자를 빼는 것,
         }
 
         data.matchPoint = ((matchCnt / (uch.length * user.otherCnt)) * 100).toFixed(2); // 12 == userCh.length
