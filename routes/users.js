@@ -59,7 +59,7 @@ module.exports = function (app, User) {
       data.keyWords = [];
       data.matchMoOx = [];
       data.matchMxOo = [];
-      data.link = "https://mykeyword.herokuapp.com/otherscheck/" + user._id;
+      data.link = "mykeyword.herokuapp.com/otherscheck/" + user._id;
       data.KeyMyself = [];
 
       let chNum = []; // 선택받은 숫자
@@ -151,7 +151,7 @@ module.exports = function (app, User) {
       data.matchMoOx = null;
       data.matchMxOo = null;
       data.matchPoint = null;
-      data.link = "https://mykeyword.herokuapp.com/otherscheck/" + user._id;
+      data.link = "mykeyword.herokuapp.com/otherscheck/" + user._id;
 
       for (let i in arr) {
         if (arr[i] > 0) {
